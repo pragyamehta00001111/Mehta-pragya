@@ -30,12 +30,12 @@
             background: linear-gradient(135deg, #fff0f0 0%, #fff3e6 100%);
             color: #2c2c2c;
             overflow: hidden;
-            height: 100dvh; /* Dynamic sizing to prevent layout overflow around mobile address bars */
+            height: 100dvh;
             width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: fixed; /* Prevents rubber-banding bounce gestures on phones */
+            position: fixed;
         }
 
         /* Top Floating Audio Hub */
@@ -128,9 +128,43 @@
             z-index: 2;
         }
 
-        /* Auto-Adjusting Typography */
+        /* Card Container Frame */
+        .lock-box {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(20px, 5vw, 40px) 20px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 340px;
+            border: 1px solid rgba(255,255,255,0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Photo Display Framing Styles */
+        .photo-frame {
+            width: 100%;
+            height: clamp(160px, 45vw, 210px);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow-md);
+            border: 4px solid #fff;
+            background: #eee;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Typography */
         h1 {
-            font-size: clamp(1.7rem, 6vw, 2.5rem);
+            font-size: clamp(1.5rem, 5.5vw, 2.3rem);
             color: var(--primary);
             font-family: var(--font-serif);
             font-style: italic;
@@ -140,7 +174,7 @@
         }
 
         p {
-            font-size: clamp(0.92rem, 3vw, 1.05rem);
+            font-size: clamp(0.9rem, 2.8vw, 1.02rem);
             line-height: 1.5;
             color: #555;
             max-width: 320px;
@@ -148,28 +182,27 @@
         }
 
         .highlight-accent {
-            font-size: clamp(1.05rem, 3.5vw, 1.25rem);
+            font-size: clamp(1rem, 3.2vw, 1.2rem);
             color: var(--primary);
             font-weight: 600;
-            margin: 15px 0;
+            margin: 10px 0;
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
 
-        /* Premium Large-Target Mobile Button */
         button {
-            padding: 15px 38px;
+            padding: 14px 34px;
             background: var(--primary);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
-            font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
             font-family: var(--font-serif);
             font-style: italic;
             cursor: pointer;
             box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         button:active {
@@ -177,30 +210,11 @@
             background: var(--primary-hover);
         }
 
-        /* Slide 1 - Modernized Locker Box */
-        #slide-1 {
-            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.3)), 
-                        url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800') no-repeat center center/cover;
-        }
-        #slide-1 h1 { color: white; }
-        #slide-1 p { color: #f5f5f5; }
-
-        .lock-box {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: clamp(25px, 6vw, 45px) 20px;
-            border-radius: 24px;
-            box-shadow: var(--shadow-lg);
-            width: 100%;
-            max-width: 330px;
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-
+        /* Page 1 Input lock styling */
         .lock-box input {
-            width: 140px;
+            width: 130px;
             padding: 12px;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             text-align: center;
             border: 2px solid rgba(209, 59, 59, 0.15);
             background: rgba(255, 255, 255, 0.7);
@@ -210,15 +224,15 @@
             outline: none;
             font-weight: 700;
             margin: 15px 0;
-            inputmode: numeric; /* Automatically opens numerical keypads on iOS & Android */
+            inputmode: numeric;
         }
 
-        /* Slide 3 - Vector Scaling Cake Structure */
+        /* Slide 4 - Vector Scaling Cake Structure */
         .cake-system {
             position: relative;
-            width: clamp(140px, 38vw, 170px);
-            height: clamp(140px, 38vw, 170px);
-            margin: 20px 0;
+            width: clamp(130px, 35vw, 160px);
+            height: clamp(130px, 35vw, 160px);
+            margin: 15px 0;
         }
 
         .cake-body {
@@ -254,7 +268,7 @@
             box-shadow: 0 0 20px #ff9d00, 0 0 40px #ff3c00;
             animation: interactiveFlicker 0.6s infinite alternate ease-in-out;
             cursor: pointer;
-            padding: 15px; /* Expands interactive target boundaries for thumbs */
+            padding: 15px;
             margin-left: -15px;
             margin-top: -15px;
         }
@@ -264,18 +278,18 @@
             100% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
         }
 
-        /* Slide 4 - Auto-Grid Plate Integration */
+        /* Slide 5 - Auto-Grid Plate Integration */
         .plate-sharing-grid {
             display: flex;
-            gap: clamp(15px, 5vw, 30px);
-            margin: 25px 0;
+            gap: clamp(15px, 4vw, 25px);
+            margin: 20px 0;
             justify-content: center;
             width: 100%;
         }
 
         .interactive-plate-node {
-            width: clamp(100px, 28vw, 125px);
-            height: clamp(100px, 28vw, 125px);
+            width: clamp(95px, 26vw, 115px);
+            height: clamp(95px, 26vw, 115px);
             background: white;
             border-radius: 50%;
             border: 2px dashed var(--rose-pink);
@@ -299,7 +313,7 @@
         .plate-descriptor {
             position: absolute;
             bottom: -24px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             width: 100px;
             font-style: italic;
             color: #666;
@@ -309,19 +323,19 @@
         .interactive-plate-node.eaten .cake-slice-graphic { display: none; }
         .interactive-plate-node.eaten::after {
             content: '💖';
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             animation: vectorPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
         }
 
         @keyframes vectorPop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
-        /* Slide 5 - Fully Responsive Stacked Cards */
+        /* Slide 6 - Fully Responsive Stacked Cards */
         .memories-carousel-container {
             position: relative;
             width: 100%;
-            max-width: 300px;
-            height: 200px;
-            margin: 20px auto 30px auto;
+            max-width: 290px;
+            height: 190px;
+            margin: 15px auto 25px auto;
         }
 
         .memory-card-node {
@@ -330,7 +344,7 @@
             height: 100%;
             background: var(--cream);
             border-radius: 16px;
-            padding: 20px 15px;
+            padding: 15px;
             box-shadow: var(--shadow-md);
             border: 1px solid rgba(0,0,0,0.02);
             display: flex;
@@ -354,17 +368,17 @@
         .memory-quote {
             font-family: var(--font-serif);
             font-style: italic;
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: var(--primary);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
-        /* Slide 6 - Letter Space Layout */
+        /* Slide 10 - Letter Space Layout */
         .parisian-letter-box {
             background: var(--cream);
             width: 100%;
             max-width: 360px;
-            padding: clamp(20px, 5vw, 30px) 18px;
+            padding: 24px 18px;
             border-radius: 16px;
             box-shadow: var(--shadow-lg);
             border-left: 5px solid var(--primary);
@@ -372,8 +386,8 @@
         }
 
         .letter-content-stream {
-            font-size: clamp(0.9rem, 2.8vw, 1rem);
-            line-height: 1.6;
+            font-size: clamp(0.88rem, 2.8vw, 0.98rem);
+            line-height: 1.55;
             color: #333;
             white-space: pre-line;
         }
@@ -381,17 +395,17 @@
         .letter-signature-block {
             text-align: right;
             font-style: italic;
-            margin-top: 15px;
+            margin-top: 12px;
             color: var(--primary);
             font-weight: 600;
             font-family: var(--font-serif);
         }
 
-        /* Slide 7 - Elastic Scaling Gift Elements */
+        /* Slide 11 - Elastic Scaling Gift Elements */
         .gift-system-wrapper {
             position: relative;
-            width: clamp(90px, 25vw, 110px);
-            height: clamp(90px, 25vw, 110px);
+            width: clamp(80px, 22vw, 100px);
+            height: clamp(80px, 22vw, 100px);
             margin: 15px 0;
             cursor: pointer;
         }
@@ -426,8 +440,8 @@
 
         #camera-feed-viewport {
             display: none;
-            width: clamp(190px, 55vw, 230px);
-            height: clamp(190px, 55vw, 230px);
+            width: clamp(180px, 50vw, 220px);
+            height: clamp(180px, 50vw, 220px);
             border: 6px solid white;
             border-radius: 50%;
             box-shadow: var(--shadow-lg);
@@ -443,7 +457,7 @@
             transform: scaleX(-1);
         }
 
-        /* Particle Overlay Background */
+        /* Background Particle System Overlay Canvas */
         #particle-canvas-overlay {
             position: fixed;
             top: 0;
@@ -461,7 +475,7 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 6px;
+            gap: 4px;
             background: rgba(255, 255, 255, 0.4);
             padding: 6px 12px;
             border-radius: 30px;
@@ -471,16 +485,16 @@
         }
 
         .progress-dot-node {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
-            background: rgba(114, 28, 36, 0.15);
+            background: rgba(114, 28, 36, 0.12);
             transition: all 0.3s ease;
         }
 
         .progress-dot-node.completed {
             background: var(--primary);
-            width: 16px;
+            width: 14px;
             border-radius: 10px;
         }
     </style>
@@ -489,12 +503,13 @@
 
     <canvas id="particle-canvas-overlay"></canvas>
 
+    <!-- ROMANTIC AUDIO ELEMENT BLOCK -->
     <audio id="romantic-song" loop preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <div class="audio-pill" id="global-audio-pill">
-        <p style="font-size: 0.75rem; margin:0; font-family:var(--font-serif); font-style:italic;">Music Room</p>
+        <p style="font-size: 0.72rem; margin:0; font-family:var(--font-serif); font-style:italic;">Music</p>
         <div class="audio-wave" id="audio-visualizer-toggle" onclick="toggleAudioPlaybackState()">
             <div class="audio-bar"></div>
             <div class="audio-bar"></div>
@@ -505,32 +520,45 @@
 
     <div id="app-viewport">
 
-        <!-- PAGE 1: ENTER LOCKER CODE -->
+        <!-- PAGE 1: PASSCODE LOCKER -->
         <div class="slide active" id="slide-1">
-            <div class="lock-box" id="locker-card-element">
-                <h1>Hello, My Love</h1>
-                <p>Enter your secret birth date code below to open my heart...</p>
+            <div class="lock-box">
+                <h1>Hello, Beautiful</h1>
+                <p>Enter your secret birth date code to unlock my message...</p>
+                <!-- Hardcoded Password set to 2910 -->
                 <input type="text" id="app-password-input" placeholder="DDMM" maxlength="4" pattern="\d*">
-                <br>
                 <button onclick="evaluateLockerPasscodeCredential()">Unlock Vault</button>
             </div>
         </div>
 
-        <!-- PAGE 2: TIMELINE DISCOVERY STATEMENT -->
+        <!-- PAGE 2: BRIGHTEST DAY TIMELINE -->
         <div class="slide" id="slide-2">
             <div class="lock-box">
                 <h1>October 29, 2005</h1>
-                <p class="highlight-accent">A Miracle Occurred ✨</p>
-                <p>On this exact day, the world was blessed with an elegant, pure, and genuinely magnificent soul. That perfect soul was you.</p>
-                <button onclick="navigateToPresentationIndex(3)">Step Inside</button>
+                <p class="highlight-accent">A Star Was Born ✨</p>
+                <p>On this exact calendar day, the universe welcomed its most gorgeous, bright, and loving human being into existence.</p>
+                <button onclick="navigateToPresentationIndex(3)">Next Page</button>
             </div>
         </div>
 
-        <!-- PAGE 3: EXTINGUISH LAYER -->
+        <!-- PAGE 3: MAIN DEDICATION SHOWING PHOTO 1 -->
         <div class="slide" id="slide-3">
             <div class="lock-box">
+                <div class="photo-frame">
+                    <!-- PHOTO PLACEHOLDER 1: Add image link inside src attribute -->
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=600" alt="Her Photo 1">
+                </div>
+                <h1>My Favourite Face</h1>
+                <p>Your beautiful smile is the exact reason my entire world stays endlessly happy and luminous every single day.</p>
+                <button onclick="navigateToPresentationIndex(4)">Continue</button>
+            </div>
+        </div>
+
+        <!-- PAGE 4: THE CANDLE INTERACTION LAYER -->
+        <div class="slide" id="slide-4">
+            <div class="lock-box">
                 <h1>Make a Wish... 💫</h1>
-                <p>Quiet your thoughts, close your eyes, and think of your absolute brightest dream, my beautiful angel.</p>
+                <p>Close your eyes, clear your thoughts, and dream up the brightest wish, my beautiful princess.</p>
                 <div style="width:100%; display:flex; justify-content:center;">
                     <div class="cake-system">
                         <div class="cake-candle-stick">
@@ -539,15 +567,15 @@
                         <div class="cake-body"></div>
                     </div>
                 </div>
-                <p style="font-size:0.8rem; font-style:italic; color:#777; margin-top:5px;">Tap the flame to blow it out and unlock the music!</p>
+                <p style="font-size:0.8rem; font-style:italic; color:#777; margin-top:5px;">Tap the fire flame to blow it out and unlock our track!</p>
             </div>
         </div>
 
-        <!-- PAGE 4: MEAL SHARE BITES INTERACTION -->
-        <div class="slide" id="slide-4">
+        <!-- PAGE 5: COOPERATIVE CAKE SHARING -->
+        <div class="slide" id="slide-5">
             <div class="lock-box">
-                <h1>Sweetest Moments</h1>
-                <p>Tap your custom dessert plate to take a bite, then tap mine to feed a sweet share bite to me!</p>
+                <h1>Let's Share a Slice</h1>
+                <p>Tap your personal plate to take a bite, then tap mine to hand-feed a delicious bite to me!</p>
                 <div class="plate-sharing-grid">
                     <div class="interactive-plate-node" id="her-dessert-plate" onclick="registerBiteInteraction('her-dessert-plate')">
                         <div class="cake-slice-graphic"></div>
@@ -558,52 +586,88 @@
                         <div class="plate-descriptor">Feed Me 🤍</div>
                     </div>
                 </div>
-                <button id="navigation-trigger-page-5" style="display: none;" onclick="navigateToPresentationIndex(5)">Continue</button>
+                <button id="navigation-trigger-page-6" style="display: none;" onclick="navigateToPresentationIndex(6)">Continue</button>
             </div>
         </div>
 
-        <!-- PAGE 5: EMOTIONAL BLOCK TEXT COMPONENT -->
-        <div class="slide" id="slide-5">
-            <h1>Our Sweet Highlights</h1>
-            <p>Tap the card stack to sort through my absolute favorite things about you...</p>
+        <!-- PAGE 6: STACKED CARD INTERACTION HIGHLIGHTS -->
+        <div class="slide" id="slide-6">
+            <h1>Why I Adore You</h1>
+            <p>Tap the card stack to discover my favorite things about your magnificent spirit...</p>
             <div class="memories-carousel-container" onclick="handleCardSwipeOrchestration()">
                 <div class="memory-card-node">
-                    <p class="memory-quote">"Your Infinite Kindness"</p>
-                    <p style="font-size:0.85rem; color:#666;">How your beautiful soul makes everyone around you feel safe, heard, and genuinely cared for.</p>
+                    <p class="memory-quote">"Your Soft Warmth"</p>
+                    <p style="font-size:0.82rem; color:#666; text-align:center;">How holding your hand instantly erases every worry from my mind.</p>
                 </div>
                 <div class="memory-card-node">
-                    <p class="memory-quote">"Your Infectious Laugh"</p>
-                    <p style="font-size:0.85rem; color:#666;">The brightest, most musical sound in the world that instantly clears any cloudy sky from my life.</p>
+                    <p class="memory-quote">"Your Musical Laugh"</p>
+                    <p style="font-size:0.82rem; color:#666; text-align:center;">The absolute best sound in the universe that makes my heart flutter.</p>
                 </div>
                 <div class="memory-card-node">
-                    <p class="memory-quote">"Your Warm Comfort"</p>
-                    <p style="font-size:0.85rem; color:#666;">How simply holding your soft hands makes the entire chaotic world feel entirely peaceful and complete.</p>
+                    <p class="memory-quote">"Your Golden Heart"</p>
+                    <p style="font-size:0.82rem; color:#666; text-align:center;">The endless care, grace, and empathy you show to everyone around you.</p>
                 </div>
             </div>
-            <button id="navigation-trigger-page-6" style="display:none;" onclick="navigateToPresentationIndex(6)">Read Letter</button>
+            <button id="navigation-trigger-page-7" style="display:none;" onclick="navigateToPresentationIndex(7)">Next Page</button>
         </div>
 
-        <!-- PAGE 6: CORRESPONDENCE POSTCARD BOX -->
-        <div class="slide" id="slide-6">
-            <div class="parisian-letter-box">
-                <h1>My Whole Heart 🌹</h1>
-                <div class="letter-content-stream">
-                    Dearest Love,
-
-                    Happy Birthday! Walking through this life journey holding your hand makes every single ordinary moment feel completely extraordinary.
-
-                    You are my quiet comfort, my constant laugh, and my absolute greatest adventure. Thank you for filling my universe with your pure light. May this beautiful year bring you all the endless success, magic, and smiles you deserve.
-                </div>
-                <div class="letter-signature-block">Forever Yours, Me</div>
-            </div>
-            <button onclick="navigateToPresentationIndex(7)">Open Gift 🎁</button>
-        </div>
-
-        <!-- PAGE 7: PROGRESSIVE REVEAL / HARDWARE CONNECT -->
+        <!-- PAGE 7: SECOND COMPIMENT MEMORY SHOWING PHOTO 2 -->
         <div class="slide" id="slide-7">
             <div class="lock-box">
-                <h1 id="gift-interaction-header">Your Present...</h1>
-                <p id="gift-interaction-subtext">Tap the gold-ribbon box below to unlock the most beautiful view in the universe.</p>
+                <div class="photo-frame">
+                    <!-- PHOTO PLACEHOLDER 2: Add image link inside src attribute -->
+                    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=600" alt="Her Photo 2">
+                </div>
+                <h1>My Entire World</h1>
+                <p>Every single path I walk feels incredibly magical simply because I get to look over and see you walking beside me.</p>
+                <button onclick="navigateToPresentationIndex(8)">Keep Moving</button>
+            </div>
+        </div>
+
+        <!-- PAGE 8: COMPLIMENT CARD 3 -->
+        <div class="slide" id="slide-8">
+            <div class="lock-box">
+                <h1>Unmatched Elegance</h1>
+                <p class="highlight-accent">Beyond Compare 🌹</p>
+                <p>You have this beautiful way of bringing immense peace, joy, and laughter wherever you go. You are completely one of a kind.</p>
+                <button onclick="navigateToPresentationIndex(9)">Next Page</button>
+            </div>
+        </div>
+
+        <!-- PAGE 9: TRAVEL PHOTO DISPLAY PHOTO 3 -->
+        <div class="slide" id="slide-9">
+            <div class="lock-box">
+                <div class="photo-frame">
+                    <!-- PHOTO PLACEHOLDER 3: Add image link inside src attribute -->
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600" alt="Her Photo 3">
+                </div>
+                <h1>My Greatest Adventure</h1>
+                <p>No matter where life takes us, making memories with you will always remain my absolute highest priority and sweetest joy.</p>
+                <button onclick="navigateToPresentationIndex(10)">Read My Letter</button>
+            </div>
+        </div>
+
+        <!-- PAGE 10: ROMANTIC POSTCARD LETTER SPACE -->
+        <div class="slide" id="slide-10">
+            <div class="parisian-letter-box">
+                <h1>My Whole Heart 💌</h1>
+                <div class="letter-content-stream">
+                    Dearest Girl,
+
+                    Happy Birthday! Walking through life holding your hand turns every ordinary landscape into a beautiful dream sequence. 
+
+                    You are my quiet harbor, my favorite joke, and my entire heart. May this upcoming year wrap you in immense success, pristine health, and the beautiful giggles your soul deserves.
+                </div>
+                <div class="letter-signature-block">Forever Devoted, Me</div>
+            </div>
+            <button onclick="navigateToPresentationIndex(11)">Open Gift 🎁</button>
+        </div>
+
+        <!-- PAGE 11: PRESENT PACK UNBOXING / WEBCAM LOOK -->
+        <div class="slide" id="slide-11">
+            <div class="lock-box">
+                <h1 id="gift-interaction-header">Your Gift Box...</h1>
+                <p id="gift-interaction-subtext">Tap the gold-ribbon box below to reveal my absolute absolute favorite artwork in the universe.</p>
                 <div style="width:100%; display:flex; justify-content:center;">
                     <div class="gift-system-wrapper" id="app-gift-element-node" onclick="triggerGiftBoxRevealEngine()">
                         <div class="gift-box-top-lid"></div>
@@ -615,25 +679,29 @@
                         <video id="device-live-webcam" autoplay playsinline muted></video>
                     </div>
                 </div>
-                <button id="navigation-trigger-page-8" style="display: none;" onclick="navigateToPresentationIndex(8)">Final Note</button>
+                <button id="navigation-trigger-page-12" style="display: none;" onclick="navigateToPresentationIndex(12)">Final Screen</button>
             </div>
         </div>
 
-        <!-- PAGE 8: OUTRO FRAME -->
-        <div class="slide" id="slide-8">
+        <!-- PAGE 12: MEMORABLE OUTRO FRAME -->
+        <div class="slide" id="slide-12">
             <div class="lock-box">
-                <h1>Forever & Always ♾️</h1>
-                <p class="highlight-accent" style="font-size: 1.3rem;">Happy Birthday, Beautiful!</p>
-                <p>Thank you for simply being the magnificent soul you are. No matter how many pages turn in our story, my heart will always beat for you.</p>
-                <p style="margin-top:15px; font-size: 1.6rem; letter-spacing: 8px;">✨🎂💝🎉</p>
+                <h1>Infinite Loops ♾️</h1>
+                <p class="highlight-accent" style="font-size: 1.25rem;">Happy Birthday, Cutie!</p>
+                <p>Thank you for filling my universe with your laughter. No matter how many calendars turn, my heart beats entirely for you.</p>
+                <p style="margin-top:12px; font-size: 1.5rem; letter-spacing: 6px;">✨🎂💝🎉</p>
             </div>
         </div>
 
     </div>
 
-    <!-- Bottom Indicator Tracker -->
+    <!-- Progressive Dot Array Indicators Frame -->
     <div class="presentation-progress-tracker" id="app-navigation-dots-pill-bar">
         <div class="progress-dot-node completed"></div>
+        <div class="progress-dot-node"></div>
+        <div class="progress-dot-node"></div>
+        <div class="progress-dot-node"></div>
+        <div class="progress-dot-node"></div>
         <div class="progress-dot-node"></div>
         <div class="progress-dot-node"></div>
         <div class="progress-dot-node"></div>
@@ -644,7 +712,7 @@
     </div>
 
     <script>
-        // Set fixed password matching value parameters (29-10-2005)
+        // Set lock passcode coordinates (29-10-2005)
         const ENCRYPTED_TARGET_KEY = "2910";
 
         let activePresentationIndex = 1;
@@ -669,15 +737,15 @@
                 this.particleType = type;
                 this.horizontalAxisPosition = Math.random() * appParticleCanvas.width;
                 this.verticalAxisPosition = appParticleCanvas.height + Math.random() * 20;
-                this.particleMassWeightSize = Math.random() * 10 + 6;
-                this.verticalVelocityAscentRate = -(Math.random() * 1.2 + 0.4);
+                this.particleMassWeightSize = Math.random() * 9 + 5;
+                this.verticalVelocityAscentRate = -(Math.random() * 1.1 + 0.3);
                 this.particleSwayTimelineMarker = Math.random() * 100;
-                this.particleAlphaOpacityValue = Math.random() * 0.4 + 0.2;
+                this.particleAlphaOpacityValue = Math.random() * 0.35 + 0.15;
             }
             updatePhysicsStateAndCoordinates() {
                 this.verticalAxisPosition += this.verticalVelocityAscentRate;
                 this.particleSwayTimelineMarker += 0.02;
-                this.horizontalAxisPosition += Math.sin(this.particleSwayTimelineMarker) * 0.25;
+                this.horizontalAxisPosition += Math.sin(this.particleSwayTimelineMarker) * 0.22;
                 if (this.verticalAxisPosition < -20 || this.horizontalAxisPosition < -20 || this.horizontalAxisPosition > appParticleCanvas.width + 20) {
                     this.resetParticleInstance(this.particleType);
                 }
@@ -685,7 +753,7 @@
             renderGraphicsToContext() {
                 particleRenderContext.save();
                 particleRenderContext.globalAlpha = this.particleAlphaOpacityValue;
-                particleRenderContext.fillStyle = this.particleType === 'confetti' ? `hsla(${Math.random() * 360}, 75%, 65%, 1)` : 'rgba(209, 59, 59, 0.3)';
+                particleRenderContext.fillStyle = this.particleType === 'confetti' ? `hsla(${Math.random() * 360}, 75%, 65%, 1)` : 'rgba(209, 59, 59, 0.25)';
                 if (this.particleType === 'heart') {
                     particleRenderContext.beginPath();
                     let topY = this.verticalAxisPosition;
@@ -705,11 +773,11 @@
             }
         }
 
-        function buildGlobalParticleGenerationArray(count = 25, type = 'heart') {
+        function buildGlobalParticleGenerationArray(count = 20, type = 'heart') {
             activeParticleArray = [];
             for (let i = 0; i < count; i++) activeParticleArray.push(new EnvironmentParticleNode(type));
         }
-        buildGlobalParticleGenerationArray(20, 'heart');
+        buildGlobalParticleGenerationArray(16, 'heart');
 
         function runGlobalParticleRenderLoop() {
             particleRenderContext.clearRect(0, 0, appParticleCanvas.width, appParticleCanvas.height);
@@ -742,10 +810,7 @@
                 clientAudioPlaybackPipeline.play().then(() => { clientAudioPlaybackPipeline.pause(); }).catch(e => console.log(e));
                 navigateToPresentationIndex(2);
             } else {
-                const el = document.getElementById('locker-card-element');
-                el.style.animation = 'none'; el.offsetHeight; /* trigger browser layout engine reflow */
-                el.style.animation = 'vectorPop 0.3s ease';
-                alert("Incorrect Key! Try again, my love.");
+                alert("Incorrect Passcode! Try again, my love.");
             }
         }
 
@@ -754,8 +819,8 @@
             document.getElementById('global-audio-pill').classList.add('visible');
             document.getElementById('audio-visualizer-toggle').classList.add('playing');
             clientAudioPlaybackPipeline.play().catch(err => console.warn(err));
-            buildGlobalParticleGenerationArray(40, 'confetti');
-            setTimeout(() => { navigateToPresentationIndex(4); }, 1200);
+            buildGlobalParticleGenerationArray(35, 'confetti');
+            setTimeout(() => { navigateToPresentationIndex(5); }, 1200);
         }
 
         function registerBiteInteraction(plateElementId) {
@@ -764,7 +829,7 @@
                 targetPlateElement.classList.add('eaten');
                 consumedDessertSlicesCount++;
                 if (consumedDessertSlicesCount === 2) {
-                    document.getElementById('navigation-trigger-page-5').style.display = 'inline-block';
+                    document.getElementById('navigation-trigger-page-6').style.display = 'inline-block';
                 }
             }
         }
@@ -775,7 +840,7 @@
                 structuralCardElements[swipedMemoryCardsCount].classList.add('swiped');
                 swipedMemoryCardsCount++;
                 if (swipedMemoryCardsCount === structuralCardElements.length) {
-                    document.getElementById('navigation-trigger-page-6').style.display = 'inline-block';
+                    document.getElementById('navigation-trigger-page-7').style.display = 'inline-block';
                 }
             }
         }
@@ -785,7 +850,7 @@
             if (!targetGiftWrapper.classList.contains('unwrapped')) {
                 targetGiftWrapper.classList.add('unwrapped');
                 document.getElementById('gift-interaction-header').innerText = "You are my ultimate gift.";
-                document.getElementById('gift-interaction-subtext').innerText = "The most spectacular view in the universe is right here.";
+                document.getElementById('gift-interaction-subtext').innerText = "The most spectacular artwork in the universe is right here.";
 
                 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                     navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false })
@@ -793,15 +858,15 @@
                         const videoTagNode = document.getElementById('device-live-webcam');
                         videoTagNode.srcObject = activeDeviceStream;
                         document.getElementById('camera-feed-viewport').style.display = 'block';
-                        document.getElementById('navigation-trigger-page-8').style.display = 'inline-block';
+                        document.getElementById('navigation-trigger-page-12').style.display = 'inline-block';
                     })
                     .catch(function(err) {
                         console.warn(err);
-                        alert("Could not pull a mirror view stream, but you look stunning right now! ❤️");
-                        document.getElementById('navigation-trigger-page-8').style.display = 'inline-block';
+                        alert("Could not load a mirror stream, but you look stunning right now! ❤️");
+                        document.getElementById('navigation-trigger-page-12').style.display = 'inline-block';
                     });
                 } else {
-                    document.getElementById('navigation-trigger-page-8').style.display = 'inline-block';
+                    document.getElementById('navigation-trigger-page-12').style.display = 'inline-block';
                 }
             }
         }
