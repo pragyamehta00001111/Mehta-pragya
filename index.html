@@ -5,72 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Happy Birthday, My Whole World</title>
     <style>
-        /* Modern System Variables & Theme Configuration */
         :root {
             --primary: #d13b3b;
             --primary-hover: #b52b2b;
-            --primary-rgb: 209, 59, 59;
             --accent: #dfb743;
-            --accent-rgb: 223, 183, 67;
-            --bg-gradient: linear-gradient(135deg, #fff3f3 0%, #ffeef2 50%, #fff0f5 100%);
-            --card-glass: rgba(255, 255, 255, 0.82);
-            --card-border: rgba(255, 255, 255, 0.6);
-            --text-main: #1c1a1a;
-            --text-muted: #5a5454;
-            --radius-lg: 32px;
-            --radius-md: 18px;
-            --radius-sm: 12px;
-            --shadow-sm: 0 4px 12px rgba(209, 59, 59, 0.03);
-            --shadow-md: 0 12px 32px rgba(209, 59, 59, 0.08);
-            --shadow-lg: 0 24px 64px rgba(209, 59, 59, 0.15);
-            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            --font-serif: "Playfair Display", "Georgia", serif;
-            --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --rose-pink: #e8a7a1;
+            --cream: #fffefa;
+            --glass: rgba(255, 255, 255, 0.88);
+            --shadow-md: 0 12px 32px rgba(114, 28, 36, 0.08);
+            --shadow-lg: 0 24px 64px rgba(114, 28, 36, 0.15);
+            --font-serif: "Georgia", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
         }
 
-        /* High-End Reset & Optimization Base */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: var(--font-sans);
             -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            background: var(--bg-gradient);
-            color: var(--text-main);
+            background: linear-gradient(135deg, #fff0f0 0%, #fff3e6 100%);
+            color: #2c2c2c;
             overflow: hidden;
-            height: 100dvh;
+            height: 100dvh; /* Dynamic sizing to prevent layout overflow around mobile address bars */
             width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: fixed;
-            perspective: 1000px;
+            position: fixed; /* Prevents rubber-banding bounce gestures on phones */
         }
 
-        /* Audio Controls Visual Overlay */
+        /* Top Floating Audio Hub */
         .audio-pill {
             position: fixed;
-            top: max(20px, env(safe-area-inset-top));
-            right: max(20px, env(safe-area-inset-right));
-            background: var(--card-glass);
-            border: 1px solid var(--card-border);
+            top: max(16px, env(safe-area-inset-top));
+            right: max(16px, env(safe-area-inset-right));
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            padding: 10px 18px;
+            padding: 8px 14px;
             border-radius: 50px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: var(--shadow-sm);
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             z-index: 1000;
             transform: translateY(-100px);
             opacity: 0;
-            transition: var(--transition-smooth);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .audio-pill.visible {
@@ -81,26 +67,22 @@
         .audio-wave {
             display: flex;
             align-items: flex-end;
-            gap: 3px;
-            width: 24px;
-            height: 16px;
+            gap: 2.5px;
+            width: 20px;
+            height: 14px;
             cursor: pointer;
         }
 
         .audio-bar {
-            width: 3px;
+            width: 2.5px;
             height: 30%;
             background-color: var(--primary);
             border-radius: 50px;
-            transition: height 0.2s ease;
             animation: pulseWave 1.2s ease-in-out infinite alternate;
             animation-play-state: paused;
         }
 
-        .audio-wave.playing .audio-bar {
-            animation-play-state: running;
-        }
-
+        .audio-wave.playing .audio-bar { animation-play-state: running; }
         .audio-wave .audio-bar:nth-child(2) { animation-delay: 0.2s; }
         .audio-wave .audio-bar:nth-child(3) { animation-delay: 0.4s; }
         .audio-wave .audio-bar:nth-child(4) { animation-delay: 0.6s; }
@@ -110,7 +92,7 @@
             100% { height: 100%; }
         }
 
-        /* Global Application Container Frame */
+        /* Auto-Adjustable Framework Structure */
         #app-viewport {
             position: relative;
             width: 100%;
@@ -120,7 +102,6 @@
             align-items: center;
         }
 
-        /* Core Slide Presentation Layout architecture */
         .slide {
             position: absolute;
             top: 0;
@@ -133,9 +114,9 @@
             align-items: center;
             opacity: 0;
             pointer-events: none;
-            transform: scale(0.96) translateZ(-50px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: clamp(20px, 6vw, 60px);
+            transform: scale(0.96);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 24px;
             text-align: center;
             z-index: 1;
         }
@@ -143,168 +124,101 @@
         .slide.active {
             opacity: 1;
             pointer-events: auto;
-            transform: scale(1) translateZ(0);
+            transform: scale(1);
             z-index: 2;
         }
 
-        /* Global UI Typography Standards */
+        /* Auto-Adjusting Typography */
         h1 {
-            font-size: clamp(2rem, 7vw, 3.4rem);
+            font-size: clamp(1.7rem, 6vw, 2.5rem);
             color: var(--primary);
             font-family: var(--font-serif);
             font-style: italic;
             font-weight: 400;
-            line-height: 1.2;
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
-        }
-
-        p {
-            font-size: clamp(0.95rem, 3.2vw, 1.15rem);
-            line-height: 1.6;
-            color: var(--text-muted);
-            max-width: 420px;
+            line-height: 1.25;
             margin-bottom: 12px;
         }
 
+        p {
+            font-size: clamp(0.92rem, 3vw, 1.05rem);
+            line-height: 1.5;
+            color: #555;
+            max-width: 320px;
+            margin-bottom: 8px;
+        }
+
         .highlight-accent {
-            font-size: clamp(1.15rem, 4vw, 1.4rem);
+            font-size: clamp(1.05rem, 3.5vw, 1.25rem);
             color: var(--primary);
             font-weight: 600;
-            margin: 20px 0;
+            margin: 15px 0;
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
 
-        /* Dynamic System Buttons with Advanced State Tracking */
+        /* Premium Large-Target Mobile Button */
         button {
-            padding: 16px 42px;
+            padding: 15px 38px;
             background: var(--primary);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
-            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            font-size: clamp(0.95rem, 2.5vw, 1.05rem);
             font-family: var(--font-serif);
             font-style: italic;
             cursor: pointer;
             box-shadow: var(--shadow-md);
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-            margin-top: 24px;
-        }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-            transition: 0.6s;
-        }
-
-        button:hover::before {
-            left: 100%;
-        }
-
-        button:hover {
-            background: var(--primary-hover);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            margin-top: 15px;
         }
 
         button:active {
-            transform: translateY(-1px);
+            transform: scale(0.96);
+            background: var(--primary-hover);
         }
 
-        /* Slide 1 Infrastructure - Modern Login Locker Box */
+        /* Slide 1 - Modernized Locker Box */
         #slide-1 {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.3)), 
-                        url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1600') no-repeat center center/cover;
+                        url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800') no-repeat center center/cover;
         }
+        #slide-1 h1 { color: white; }
+        #slide-1 p { color: #f5f5f5; }
 
-        #slide-1 h1 { color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-        #slide-1 p { color: rgba(255,255,255,0.9); text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-
-        .lock-container {
-            background: var(--card-glass);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            padding: clamp(35px, 8vw, 55px) 30px;
-            border-radius: var(--radius-lg);
+        .lock-box {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(25px, 6vw, 45px) 20px;
+            border-radius: 24px;
             box-shadow: var(--shadow-lg);
-            width: 92%;
-            max-width: 360px;
-            border: 1px solid var(--card-border);
-            transform: translateY(0);
-            transition: var(--transition-smooth);
-        }
-
-        .lock-input-group {
-            position: relative;
-            margin: 25px auto;
-            width: 180px;
-        }
-
-        .lock-container input {
             width: 100%;
-            padding: 16px;
-            font-size: 1.6rem;
+            max-width: 330px;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .lock-box input {
+            width: 140px;
+            padding: 12px;
+            font-size: 1.5rem;
             text-align: center;
-            border: 2px solid rgba(209, 59, 59, 0.12);
+            border: 2px solid rgba(209, 59, 59, 0.15);
             background: rgba(255, 255, 255, 0.7);
-            border-radius: var(--radius-md);
-            letter-spacing: 6px;
-            color: var(--text-main);
+            border-radius: 12px;
+            letter-spacing: 4px;
+            color: #222;
             outline: none;
-            transition: var(--transition-smooth);
             font-weight: 700;
+            margin: 15px 0;
+            inputmode: numeric; /* Automatically opens numerical keypads on iOS & Android */
         }
 
-        .lock-container input:focus {
-            border-color: var(--primary);
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(209, 59, 59, 0.15);
-        }
-
-        /* Error shaking effect implementation */
-        @keyframes errorShake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
-        }
-
-        .shake-error {
-            animation: errorShake 0.4s ease-in-out;
-            border-color: #ff3838 !important;
-        }
-
-        /* Slide 2 Specific Layout Configurations */
-        .interactive-card {
-            background: var(--card-glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: clamp(25px, 6vw, 45px);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--card-border);
-            max-width: 460px;
-            width: 100%;
-            transform: translateY(0);
-            transition: var(--transition-smooth);
-        }
-
-        /* Slide 3 Layout Custom Interactive Cake & Multi-layered Flame nodes */
+        /* Slide 3 - Vector Scaling Cake Structure */
         .cake-system {
             position: relative;
-            width: clamp(160px, 45vw, 220px);
-            height: clamp(160px, 45vw, 220px);
-            margin: 35px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: clamp(140px, 38vw, 170px);
+            height: clamp(140px, 38vw, 170px);
+            margin: 20px 0;
         }
 
         .cake-body {
@@ -313,18 +227,8 @@
             width: 100%;
             height: 55%;
             background-color: var(--cream);
-            border-radius: 20px 20px 12px 12px;
-            box-shadow: inset 0 16px 0 var(--rose-pink), var(--shadow-md);
-            border: 1px solid rgba(209, 59, 59, 0.05);
-        }
-
-        .cake-frosting {
-            position: absolute;
-            top: 45%;
-            width: 100%;
-            height: 12px;
-            background: var(--rose-pink);
-            border-radius: 50px;
+            border-radius: 16px 16px 8px 8px;
+            box-shadow: inset 0 12px 0 var(--rose-pink), var(--shadow-md);
         }
 
         .cake-candle-stick {
@@ -332,123 +236,92 @@
             bottom: 54%;
             left: 50%;
             transform: translateX(-50%);
-            width: 14px;
-            height: 28%;
+            width: 12px;
+            height: 25%;
             background: linear-gradient(to right, #ffe17d, #fff4cc, #ffe17d);
-            border-radius: 6px;
-            border: 1px solid rgba(223, 183, 67, 0.4);
-        }
-
-        .cake-candle-wick {
-            position: absolute;
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 8px;
-            background: #444;
+            border-radius: 4px;
         }
 
         .cake-candle-flame-node {
             position: absolute;
-            top: -34px;
+            top: -24px;
             left: 50%;
             transform: translateX(-50%);
-            width: 24px;
-            height: 34px;
+            width: 20px;
+            height: 28px;
             background: radial-gradient(circle at 50% 100%, #fff7d9 10%, #ffdf6d 30%, #ff9d00 60%, #ff3c00 100%);
             border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 30px #ff9d00, 0 0 60px #ff3c00;
+            box-shadow: 0 0 20px #ff9d00, 0 0 40px #ff3c00;
             animation: interactiveFlicker 0.6s infinite alternate ease-in-out;
             cursor: pointer;
-            padding: 20px;
-            margin-left: -20px;
-            margin-top: -20px;
-            z-index: 10;
+            padding: 15px; /* Expands interactive target boundaries for thumbs */
+            margin-left: -15px;
+            margin-top: -15px;
         }
 
         @keyframes interactiveFlicker {
-            0% { transform: translateX(-50%) scale(1) rotate(-2deg); opacity: 0.95; }
-            100% { transform: translateX(-50%) scale(1.15) rotate(3deg); opacity: 1; }
+            0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+            100% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
         }
 
-        /* Slide 4 Asset Plate & Object Integration structures */
+        /* Slide 4 - Auto-Grid Plate Integration */
         .plate-sharing-grid {
             display: flex;
-            gap: clamp(25px, 8vw, 60px);
-            margin: 40px 0;
+            gap: clamp(15px, 5vw, 30px);
+            margin: 25px 0;
             justify-content: center;
-            align-items: center;
             width: 100%;
         }
 
         .interactive-plate-node {
-            width: clamp(110px, 32vw, 150px);
-            height: clamp(110px, 32vw, 150px);
+            width: clamp(100px, 28vw, 125px);
+            height: clamp(100px, 28vw, 125px);
             background: white;
             border-radius: 50%;
-            border: 3px dashed var(--rose-pink);
+            border: 2px dashed var(--rose-pink);
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             cursor: pointer;
             box-shadow: var(--shadow-md);
-            transition: var(--transition-smooth);
-        }
-
-        .interactive-plate-node:hover {
-            transform: scale(1.06) translateY(-4px);
-            border-color: var(--primary);
+            transition: all 0.3s ease;
         }
 
         .cake-slice-graphic {
-            width: 55%;
-            height: 55%;
+            width: 50%;
+            height: 50%;
             background: var(--cream);
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            border-bottom: 12px solid var(--rose-pink);
-            transition: var(--transition-smooth);
+            border-bottom: 10px solid var(--rose-pink);
         }
 
         .plate-descriptor {
             position: absolute;
-            bottom: -32px;
-            font-size: 0.9rem;
-            width: 130px;
+            bottom: -24px;
+            font-size: 0.8rem;
+            width: 100px;
             font-style: italic;
-            color: var(--text-muted);
+            color: #666;
             font-family: var(--font-serif);
         }
 
-        .interactive-plate-node.eaten .cake-slice-graphic {
-            opacity: 0;
-            transform: scale(0.5);
-            pointer-events: none;
-        }
-
+        .interactive-plate-node.eaten .cake-slice-graphic { display: none; }
         .interactive-plate-node.eaten::after {
             content: '💖';
-            position: absolute;
-            font-size: clamp(2rem, 6vw, 2.6rem);
-            animation: vectorPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+            font-size: 1.8rem;
+            animation: vectorPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
         }
 
-        @keyframes vectorPop {
-            0% { transform: scale(0) rotate(-20deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
+        @keyframes vectorPop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
-        /* Slide 5 Interactive Card Carousel Styling Block */
+        /* Slide 5 - Fully Responsive Stacked Cards */
         .memories-carousel-container {
             position: relative;
             width: 100%;
-            max-width: 380px;
-            height: 240px;
-            margin: 30px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            max-width: 300px;
+            height: 200px;
+            margin: 20px auto 30px auto;
         }
 
         .memory-card-node {
@@ -456,24 +329,24 @@
             width: 100%;
             height: 100%;
             background: var(--cream);
-            border-radius: var(--radius-md);
-            padding: 25px;
+            border-radius: 16px;
+            padding: 20px 15px;
             box-shadow: var(--shadow-md);
-            border: 1px solid rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: var(--transition-smooth);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
         }
 
-        .memory-card-node:nth-child(1) { transform: rotate(-3deg) translateY(-5px); z-index: 3; }
-        .memory-card-node:nth-child(2) { transform: rotate(2deg) scale(0.96) cubic-bezier(0.16, 1, 0.3, 1); z-index: 2; opacity: 0.85; }
-        .memory-card-node:nth-child(3) { transform: rotate(-1deg) scale(0.92) cubic-bezier(0.16, 1, 0.3, 1); z-index: 1; opacity: 0.6; }
+        .memory-card-node:nth-child(1) { transform: rotate(-3deg) translateY(-4px); z-index: 3; }
+        .memory-card-node:nth-child(2) { transform: rotate(2deg) scale(0.96); z-index: 2; opacity: 0.9; }
+        .memory-card-node:nth-child(3) { transform: rotate(-1deg) scale(0.92); z-index: 1; opacity: 0.7; }
 
         .memory-card-node.swiped {
-            transform: translateX(150%) rotate(20deg) !important;
+            transform: translateX(140%) rotate(15deg) !important;
             opacity: 0 !important;
             pointer-events: none;
         }
@@ -481,38 +354,26 @@
         .memory-quote {
             font-family: var(--font-serif);
             font-style: italic;
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             color: var(--primary);
-            line-height: 1.5;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
-        /* Slide 6 Structural Postcard Letter Node Layouts */
+        /* Slide 6 - Letter Space Layout */
         .parisian-letter-box {
             background: var(--cream);
             width: 100%;
-            max-width: 460px;
-            padding: clamp(25px, 6vw, 40px) clamp(20px, 5vw, 30px);
-            border-radius: var(--radius-lg);
+            max-width: 360px;
+            padding: clamp(20px, 5vw, 30px) 18px;
+            border-radius: 16px;
             box-shadow: var(--shadow-lg);
-            border-left: 6px solid var(--primary);
+            border-left: 5px solid var(--primary);
             text-align: left;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .parisian-letter-box::before {
-            content: '✉️';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            opacity: 0.06;
         }
 
         .letter-content-stream {
-            font-size: clamp(0.95rem, 3vw, 1.08rem);
-            line-height: 1.7;
+            font-size: clamp(0.9rem, 2.8vw, 1rem);
+            line-height: 1.6;
             color: #333;
             white-space: pre-line;
         }
@@ -520,90 +381,69 @@
         .letter-signature-block {
             text-align: right;
             font-style: italic;
-            margin-top: 24px;
+            margin-top: 15px;
             color: var(--primary);
             font-weight: 600;
-            font-size: 1.1rem;
             font-family: var(--font-serif);
         }
 
-        /* Slide 7 Geometric Present Node Box Formations */
+        /* Slide 7 - Elastic Scaling Gift Elements */
         .gift-system-wrapper {
             position: relative;
-            width: clamp(110px, 30vw, 140px);
-            height: clamp(110px, 30vw, 140px);
-            margin: 30px 0;
+            width: clamp(90px, 25vw, 110px);
+            height: clamp(90px, 25vw, 110px);
+            margin: 15px 0;
             cursor: pointer;
-            perspective: 600px;
         }
 
         .gift-box-base {
             width: 100%;
             height: 100%;
             background-color: var(--primary);
-            border-radius: 16px;
+            border-radius: 12px;
             position: relative;
             box-shadow: var(--shadow-md);
-            border: 1px solid var(--primary-hover);
-            transition: var(--transition-smooth);
         }
 
         .gift-box-base::before {
-            content: ''; position: absolute; top:0; bottom:0; left:calc(50% - 10px); width:20px; background: var(--accent);
+            content: ''; position: absolute; top:0; bottom:0; left:calc(50% - 8px); width:16px; background: var(--accent);
         }
 
         .gift-box-base::after {
-            content: ''; position: absolute; left:0; right:0; top:calc(50% - 10px); height:20px; background: var(--accent);
+            content: ''; position: absolute; left:0; right:0; top:calc(50% - 8px); height:16px; background: var(--accent);
         }
 
         .gift-box-top-lid {
-            position: absolute;
-            top: -8px;
-            left: -5%;
-            width: 110%;
-            height: 25%;
-            background: #56141a;
-            border-radius: 8px;
-            z-index: 5;
-            transition: var(--transition-smooth);
-            border: 1px solid var(--accent);
-            transform-origin: bottom center;
+            position: absolute; top: -6px; left: -4%; width: 108%; height: 22%; 
+            background: #56141a; border-radius: 4px; z-index: 5;
+            transition: all 0.5s ease-out;
         }
 
         .gift-system-wrapper.unwrapped .gift-box-top-lid {
-            transform: translateY(-80px) rotateX(-110deg) scale(0.9);
+            transform: translateY(-50px) rotate(-15deg);
             opacity: 0;
         }
 
-        /* Hardware Accelerated Front-facing Cam Container Node Frame */
         #camera-feed-viewport {
             display: none;
-            width: clamp(220px, 65vw, 280px);
-            height: clamp(220px, 65vw, 280px);
-            border: 8px solid white;
+            width: clamp(190px, 55vw, 230px);
+            height: clamp(190px, 55vw, 230px);
+            border: 6px solid white;
             border-radius: 50%;
             box-shadow: var(--shadow-lg);
             overflow: hidden;
             background: #111;
-            margin-top: 20px;
-            transform: scale(0.9);
-            opacity: 0;
-            transition: var(--transition-smooth);
-        }
-
-        #camera-feed-viewport.active-view {
-            transform: scale(1);
-            opacity: 1;
+            margin-top: 10px;
         }
 
         #device-live-webcam {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scaleX(-1); /* Native mirrors orientation alignment overlay code logic */
+            transform: scaleX(-1);
         }
 
-        /* Native Client-side Render Background canvas overlay orchestration engines */
+        /* Particle Overlay Background */
         #particle-canvas-overlay {
             position: fixed;
             top: 0;
@@ -614,16 +454,16 @@
             z-index: 0;
         }
 
-        /* Progress Bar Indicator Overlay navigation link tracking */
+        /* Auto-Adjusting Bottom Progress Tracker Bar */
         .presentation-progress-tracker {
             position: fixed;
-            bottom: max(20px, env(safe-area-inset-bottom));
+            bottom: max(16px, env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 8px;
+            gap: 6px;
             background: rgba(255, 255, 255, 0.4);
-            padding: 8px 14px;
+            padding: 6px 12px;
             border-radius: 30px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -631,33 +471,30 @@
         }
 
         .progress-dot-node {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: rgba(114, 28, 36, 0.15);
-            transition: var(--transition-smooth);
+            transition: all 0.3s ease;
         }
 
         .progress-dot-node.completed {
             background: var(--primary);
-            width: 20px;
+            width: 16px;
             border-radius: 10px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Particle Overlay Canvas Layer -->
     <canvas id="particle-canvas-overlay"></canvas>
 
-    <!-- Global Application Background Audio Tracker Stream Module -->
     <audio id="romantic-song" loop preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Interactive Top Audio Wave Controller Pill Floating Element Node -->
     <div class="audio-pill" id="global-audio-pill">
-        <p style="font-size: 0.8rem; margin:0; font-family:var(--font-serif); font-style:italic;">Music Room</p>
+        <p style="font-size: 0.75rem; margin:0; font-family:var(--font-serif); font-style:italic;">Music Room</p>
         <div class="audio-wave" id="audio-visualizer-toggle" onclick="toggleAudioPlaybackState()">
             <div class="audio-bar"></div>
             <div class="audio-bar"></div>
@@ -666,24 +503,22 @@
         </div>
     </div>
 
-    <!-- Application Presentation Content Sliding Frame Systems Viewports -->
     <div id="app-viewport">
 
-        <!-- PAGE 1: SECURITY CODE VALIDATION LOCKER PANEL -->
+        <!-- PAGE 1: ENTER LOCKER CODE -->
         <div class="slide active" id="slide-1">
-            <div class="lock-container" id="locker-card-element">
+            <div class="lock-box" id="locker-card-element">
                 <h1>Hello, My Love</h1>
                 <p>Enter your secret birth date code below to open my heart...</p>
-                <div class="lock-input-group">
-                    <input type="text" id="app-password-input" placeholder="DDMM" maxlength="4" pattern="\d*">
-                </div>
+                <input type="text" id="app-password-input" placeholder="DDMM" maxlength="4" pattern="\d*">
+                <br>
                 <button onclick="evaluateLockerPasscodeCredential()">Unlock Vault</button>
             </div>
         </div>
 
-        <!-- PAGE 2: CHRONOLOGICAL BIRTH HISTORY FRAME DATA REVEAL -->
+        <!-- PAGE 2: TIMELINE DISCOVERY STATEMENT -->
         <div class="slide" id="slide-2">
-            <div class="interactive-card">
+            <div class="lock-box">
                 <h1>October 29, 2005</h1>
                 <p class="highlight-accent">A Miracle Occurred ✨</p>
                 <p>On this exact day, the world was blessed with an elegant, pure, and genuinely magnificent soul. That perfect soul was you.</p>
@@ -691,67 +526,64 @@
             </div>
         </div>
 
-        <!-- PAGE 3: CLIENT INTERACTIVE PHYSICS CANDLE EXTINGUISH LAYER -->
+        <!-- PAGE 3: EXTINGUISH LAYER -->
         <div class="slide" id="slide-3">
-            <div class="interactive-card">
+            <div class="lock-box">
                 <h1>Make a Wish... 💫</h1>
                 <p>Quiet your thoughts, close your eyes, and think of your absolute brightest dream, my beautiful angel.</p>
                 <div style="width:100%; display:flex; justify-content:center;">
                     <div class="cake-system">
                         <div class="cake-candle-stick">
-                            <div class="cake-candle-wick"></div>
                             <div class="cake-candle-flame-node" id="interactive-candle-flame" onclick="extinguishCandleFlameObject()"></div>
                         </div>
-                        <div class="cake-body">
-                            <div class="cake-frosting"></div>
-                        </div>
+                        <div class="cake-body"></div>
                     </div>
                 </div>
-                <p style="font-size:0.85rem; font-style:italic; color:var(--text-muted); margin-top:10px;">Tap the glowing fire flame to blow it out and unlock the music room!</p>
+                <p style="font-size:0.8rem; font-style:italic; color:#777; margin-top:5px;">Tap the flame to blow it out and unlock the music!</p>
             </div>
         </div>
 
-        <!-- PAGE 4: SWEET COOPERATIVE MEAL INTERACTION GRID BLOCKS -->
+        <!-- PAGE 4: MEAL SHARE BITES INTERACTION -->
         <div class="slide" id="slide-4">
-            <div class="interactive-card">
+            <div class="lock-box">
                 <h1>Sweetest Moments</h1>
                 <p>Tap your custom dessert plate to take a bite, then tap mine to feed a sweet share bite to me!</p>
                 <div class="plate-sharing-grid">
                     <div class="interactive-plate-node" id="her-dessert-plate" onclick="registerBiteInteraction('her-dessert-plate')">
                         <div class="cake-slice-graphic"></div>
-                        <div class="plate-label">Your Bite ✨</div>
+                        <div class="plate-descriptor">Your Bite ✨</div>
                     </div>
                     <div class="interactive-plate-node" id="my-shared-plate" onclick="registerBiteInteraction('my-shared-plate')">
                         <div class="cake-slice-graphic"></div>
-                        <div class="plate-label">Feed Me 🤍</div>
+                        <div class="plate-descriptor">Feed Me 🤍</div>
                     </div>
                 </div>
                 <button id="navigation-trigger-page-5" style="display: none;" onclick="navigateToPresentationIndex(5)">Continue</button>
             </div>
         </div>
 
-        <!-- PAGE 5: DYNAMIC MEMORY TEXT CAROUSEL STACKS ELEMENT LAYER -->
+        <!-- PAGE 5: EMOTIONAL BLOCK TEXT COMPONENT -->
         <div class="slide" id="slide-5">
             <h1>Our Sweet Highlights</h1>
             <p>Tap the card stack to sort through my absolute favorite things about you...</p>
             <div class="memories-carousel-container" onclick="handleCardSwipeOrchestration()">
                 <div class="memory-card-node">
                     <p class="memory-quote">"Your Infinite Kindness"</p>
-                    <p style="font-size:0.9rem;">How your beautiful soul makes everyone around you feel safe, heard, and genuinely cared for.</p>
+                    <p style="font-size:0.85rem; color:#666;">How your beautiful soul makes everyone around you feel safe, heard, and genuinely cared for.</p>
                 </div>
                 <div class="memory-card-node">
                     <p class="memory-quote">"Your Infectious Laugh"</p>
-                    <p style="font-size:0.9rem;">The brightest, most musical sound in the world that instantly clears any cloudy sky from my life.</p>
+                    <p style="font-size:0.85rem; color:#666;">The brightest, most musical sound in the world that instantly clears any cloudy sky from my life.</p>
                 </div>
                 <div class="memory-card-node">
                     <p class="memory-quote">"Your Warm Comfort"</p>
-                    <p style="font-size:0.9rem;">How simply holding your soft hands makes the entire chaotic world feel entirely peaceful and complete.</p>
+                    <p style="font-size:0.85rem; color:#666;">How simply holding your soft hands makes the entire chaotic world feel entirely peaceful and complete.</p>
                 </div>
             </div>
             <button id="navigation-trigger-page-6" style="display:none;" onclick="navigateToPresentationIndex(6)">Read Letter</button>
         </div>
 
-        <!-- PAGE 6: VINTAGE PARISIAN LETTER POSTCARD CARD FLOW -->
+        <!-- PAGE 6: CORRESPONDENCE POSTCARD BOX -->
         <div class="slide" id="slide-6">
             <div class="parisian-letter-box">
                 <h1>My Whole Heart 🌹</h1>
@@ -767,11 +599,11 @@
             <button onclick="navigateToPresentationIndex(7)">Open Gift 🎁</button>
         </div>
 
-        <!-- PAGE 7: PROGRESSIVE UNBOXING & WEBCAM STREAM CAPTURE NODE FRAME -->
+        <!-- PAGE 7: PROGRESSIVE REVEAL / HARDWARE CONNECT -->
         <div class="slide" id="slide-7">
-            <div class="interactive-card">
-                <h1 id="gift-interaction-header">Your Special Present...</h1>
-                <p id="gift-interaction-subtext">Tap the gold-ribbon jewelry container below to unlock the most beautiful view in the universe.</p>
+            <div class="lock-box">
+                <h1 id="gift-interaction-header">Your Present...</h1>
+                <p id="gift-interaction-subtext">Tap the gold-ribbon box below to unlock the most beautiful view in the universe.</p>
                 <div style="width:100%; display:flex; justify-content:center;">
                     <div class="gift-system-wrapper" id="app-gift-element-node" onclick="triggerGiftBoxRevealEngine()">
                         <div class="gift-box-top-lid"></div>
@@ -787,19 +619,19 @@
             </div>
         </div>
 
-        <!-- PAGE 8: MONUMENTAL CLOSING REMARKS & FUTURE WISH EMISSION PANEL -->
+        <!-- PAGE 8: OUTRO FRAME -->
         <div class="slide" id="slide-8">
-            <div class="interactive-card">
+            <div class="lock-box">
                 <h1>Forever & Always ♾️</h1>
-                <p class="highlight-accent" style="font-size: 1.5rem;">Happy Birthday, Beautiful!</p>
+                <p class="highlight-accent" style="font-size: 1.3rem;">Happy Birthday, Beautiful!</p>
                 <p>Thank you for simply being the magnificent soul you are. No matter how many pages turn in our story, my heart will always beat for you.</p>
-                <p style="margin-top:20px; font-size: 2rem; letter-spacing: 10px;">✨🎂💝🎉</p>
+                <p style="margin-top:15px; font-size: 1.6rem; letter-spacing: 8px;">✨🎂💝🎉</p>
             </div>
         </div>
 
     </div>
 
-    <!-- Interactive Navigation Floating Dots Trackers Frame -->
+    <!-- Bottom Indicator Tracker -->
     <div class="presentation-progress-tracker" id="app-navigation-dots-pill-bar">
         <div class="progress-dot-node completed"></div>
         <div class="progress-dot-node"></div>
@@ -811,24 +643,19 @@
         <div class="progress-dot-node"></div>
     </div>
 
-    <!-- Application Business Engine Initialization Logical System Code -->
     <script>
-        // Target Password configuration for verification sequence logic (29-10-2005)
+        // Set fixed password matching value parameters (29-10-2005)
         const ENCRYPTED_TARGET_KEY = "2910";
 
-        // Global State Controller Registry objects
         let activePresentationIndex = 1;
         let consumedDessertSlicesCount = 0;
         let swipedMemoryCardsCount = 0;
         let clientAudioPlaybackPipeline = document.getElementById('romantic-song');
 
-        // Particle System Canvas Core variables
         const appParticleCanvas = document.getElementById('particle-canvas-overlay');
         const particleRenderContext = appParticleCanvas.getContext('2d');
         let activeParticleArray = [];
-        let systemParticleGlobalColorTheme = 'rgba(209, 59, 59, 0.12)';
 
-        // Responsive Canvas Dimension Auto Adjustment engine alignment
         function resizeParticleCanvasViewportBounds() {
             appParticleCanvas.width = window.innerWidth;
             appParticleCanvas.height = window.innerHeight;
@@ -836,199 +663,141 @@
         window.addEventListener('resize', resizeParticleCanvasViewportBounds);
         resizeParticleCanvasViewportBounds();
 
-        // 2D Canvas Physics Particle Vector Definition blueprint structures
         class EnvironmentParticleNode {
-            constructor(type = 'heart') {
-                this.resetParticleInstance(type);
-                this.verticalAxisPosition = Math.random() * appParticleCanvas.height;
-            }
-
+            constructor(type = 'heart') { this.resetParticleInstance(type); this.verticalAxisPosition = Math.random() * appParticleCanvas.height; }
             resetParticleInstance(type = 'heart') {
                 this.particleType = type;
                 this.horizontalAxisPosition = Math.random() * appParticleCanvas.width;
-                this.verticalAxisPosition = appParticleCanvas.height + Math.random() * 40;
-                this.particleMassWeightSize = Math.random() * 14 + 6;
-                this.verticalVelocityAscentRate = -(Math.random() * 1.5 + 0.5);
-                this.horizontalSwayVelocityRate = Math.sin(Math.random() * Math.PI) * 0.4;
+                this.verticalAxisPosition = appParticleCanvas.height + Math.random() * 20;
+                this.particleMassWeightSize = Math.random() * 10 + 6;
+                this.verticalVelocityAscentRate = -(Math.random() * 1.2 + 0.4);
                 this.particleSwayTimelineMarker = Math.random() * 100;
-                this.particleAlphaOpacityValue = Math.random() * 0.5 + 0.2;
+                this.particleAlphaOpacityValue = Math.random() * 0.4 + 0.2;
             }
-
             updatePhysicsStateAndCoordinates() {
                 this.verticalAxisPosition += this.verticalVelocityAscentRate;
                 this.particleSwayTimelineMarker += 0.02;
-                this.horizontalAxisPosition += Math.sin(this.particleSwayTimelineMarker) * 0.3 + this.horizontalSwayVelocityRate;
-
-                // Handle out-of-bounds boundary escape loops
-                if (this.verticalAxisPosition < -30 || this.horizontalAxisPosition < -30 || this.horizontalAxisPosition > appParticleCanvas.width + 30) {
+                this.horizontalAxisPosition += Math.sin(this.particleSwayTimelineMarker) * 0.25;
+                if (this.verticalAxisPosition < -20 || this.horizontalAxisPosition < -20 || this.horizontalAxisPosition > appParticleCanvas.width + 20) {
                     this.resetParticleInstance(this.particleType);
                 }
             }
-
             renderGraphicsToContext() {
                 particleRenderContext.save();
                 particleRenderContext.globalAlpha = this.particleAlphaOpacityValue;
-                particleRenderContext.fillStyle = this.particleType === 'confetti' ? `hsla(${Math.random() * 360}, 75%, 65%, ${this.particleAlphaOpacityValue})` : 'rgba(209, 59, 59, 0.4)';
-                
+                particleRenderContext.fillStyle = this.particleType === 'confetti' ? `hsla(${Math.random() * 360}, 75%, 65%, 1)` : 'rgba(209, 59, 59, 0.3)';
                 if (this.particleType === 'heart') {
-                    // Mathematical Vector Heart curve trajectory rendering paths
                     particleRenderContext.beginPath();
                     let topY = this.verticalAxisPosition;
                     let leftX = this.horizontalAxisPosition - this.particleMassWeightSize / 2;
                     let rightX = this.horizontalAxisPosition + this.particleMassWeightSize / 2;
-                    
                     particleRenderContext.moveTo(this.horizontalAxisPosition, topY + this.particleMassWeightSize / 4);
                     particleRenderContext.bezierCurveTo(this.horizontalAxisPosition, topY, leftX, topY, leftX, topY + this.particleMassWeightSize / 2);
                     particleRenderContext.bezierCurveTo(leftX, topY + (this.particleMassWeightSize * 0.75), this.horizontalAxisPosition, topY + (this.particleMassWeightSize * 1.1), this.horizontalAxisPosition, topY + this.particleMassWeightSize);
                     particleRenderContext.bezierCurveTo(this.horizontalAxisPosition, topY + (this.particleMassWeightSize * 1.1), rightX, topY + (this.particleMassWeightSize * 0.75), rightX, topY + this.particleMassWeightSize / 2);
                     particleRenderContext.bezierCurveTo(rightX, topY, this.horizontalAxisPosition, topY, this.horizontalAxisPosition, topY + this.particleMassWeightSize / 4);
-                    particleRenderContext.closePath();
                     particleRenderContext.fill();
                 } else {
-                    // Render confetti geometry vector blocks
                     particleRenderContext.translate(this.horizontalAxisPosition, this.verticalAxisPosition);
-                    particleRenderContext.rotate(this.particleSwayTimelineMarker);
                     particleRenderContext.fillRect(-this.particleMassWeightSize/2, -this.particleMassWeightSize/2, this.particleMassWeightSize, this.particleMassWeightSize);
                 }
                 particleRenderContext.restore();
             }
         }
 
-        // Initialize Background Particle Engine Arrays
-        function buildGlobalParticleGenerationArray(count = 45, type = 'heart') {
+        function buildGlobalParticleGenerationArray(count = 25, type = 'heart') {
             activeParticleArray = [];
-            for (let index = 0; index < count; index++) {
-                activeParticleArray.push(new EnvironmentParticleNode(type));
-            }
+            for (let i = 0; i < count; i++) activeParticleArray.push(new EnvironmentParticleNode(type));
         }
-        buildGlobalParticleGenerationArray(35, 'heart');
+        buildGlobalParticleGenerationArray(20, 'heart');
 
-        // Continuous Loop Render Processing Execution
         function runGlobalParticleRenderLoop() {
             particleRenderContext.clearRect(0, 0, appParticleCanvas.width, appParticleCanvas.height);
-            for (let index = 0; index < activeParticleArray.length; index++) {
-                activeParticleArray[index].updatePhysicsStateAndCoordinates();
-                activeParticleArray[index].renderGraphicsToContext();
+            for (let i = 0; i < activeParticleArray.length; i++) {
+                activeParticleArray[i].updatePhysicsStateAndCoordinates();
+                activeParticleArray[i].renderGraphicsToContext();
             }
             requestAnimationFrame(runGlobalParticleRenderLoop);
         }
         requestAnimationFrame(runGlobalParticleRenderLoop);
 
-        // Slide System Slide Navigation Array index processing orchestration
         function navigateToPresentationIndex(targetIndex) {
             document.querySelector('.slide.active').classList.remove('active');
             document.getElementById(`slide-${targetIndex}`).classList.add('active');
-            
             activePresentationIndex = targetIndex;
             synchronizeNavigationDotsPillIndicators();
         }
 
-        // Sync visual indicator navigation array tracking nodes
         function synchronizeNavigationDotsPillIndicators() {
             const childrenPills = document.getElementById('app-navigation-dots-pill-bar').children;
             for (let i = 0; i < childrenPills.length; i++) {
-                if (i + 1 === activePresentationIndex) {
-                    childrenPills[i].classList.add('completed');
-                } else {
-                    childrenPills[i].classList.remove('completed');
-                }
+                if (i + 1 === activePresentationIndex) childrenPills[i].classList.add('completed');
+                else childrenPills[i].classList.remove('completed');
             }
         }
 
-        // Slide 1 - Key Authentication Validation routine logic
         function evaluateLockerPasscodeCredential() {
             const textValue = document.getElementById('app-password-input').value;
-            const targetBoxElement = document.getElementById('locker-card-element');
-            
             if (textValue === ENCRYPTED_TARGET_KEY) {
-                // Pre-prime and establish active pipeline tracking strings for device capabilities
-                clientAudioPlaybackPipeline.play().then(() => {
-                    clientAudioPlaybackPipeline.pause();
-                }).catch(exception => console.log('Audio init exception safe-handled: ', exception));
-                
+                clientAudioPlaybackPipeline.play().then(() => { clientAudioPlaybackPipeline.pause(); }).catch(e => console.log(e));
                 navigateToPresentationIndex(2);
             } else {
-                targetBoxElement.classList.add('shake-error');
-                document.getElementById('app-password-input').value = "";
-                setTimeout(() => {
-                    targetBoxElement.classList.remove('shake-error');
-                }, 400);
+                const el = document.getElementById('locker-card-element');
+                el.style.animation = 'none'; el.offsetHeight; /* trigger browser layout engine reflow */
+                el.style.animation = 'vectorPop 0.3s ease';
+                alert("Incorrect Key! Try again, my love.");
             }
         }
 
-        // Slide 3 - Extinguish Candle Fire simulation processing
         function extinguishCandleFlameObject() {
             document.getElementById('interactive-candle-flame').style.display = 'none';
-            
-            // Activate Audio Interface Elements and transition stream nodes gracefully
             document.getElementById('global-audio-pill').classList.add('visible');
             document.getElementById('audio-visualizer-toggle').classList.add('playing');
             clientAudioPlaybackPipeline.play().catch(err => console.warn(err));
-            
-            // Shift particle fields to celebratory multi-colored confetti structures
-            buildGlobalParticleGenerationArray(60, 'confetti');
-            
-            setTimeout(() => {
-                navigateToPresentationIndex(4);
-            }, 1400);
+            buildGlobalParticleGenerationArray(40, 'confetti');
+            setTimeout(() => { navigateToPresentationIndex(4); }, 1200);
         }
 
-        // Slide 4 - Food Sharing Interactive Array nodes state checking
         function registerBiteInteraction(plateElementId) {
             const targetPlateElement = document.getElementById(plateElementId);
             if (!targetPlateElement.classList.contains('eaten')) {
                 targetPlateElement.classList.add('eaten');
                 consumedDessertSlicesCount++;
-                
                 if (consumedDessertSlicesCount === 2) {
                     document.getElementById('navigation-trigger-page-5').style.display = 'inline-block';
                 }
             }
         }
 
-        // Slide 5 - Structural Touch Stack Swiping implementation
         function handleCardSwipeOrchestration() {
             const structuralCardElements = document.getElementsByClassName('memory-card-node');
             if (swipedMemoryCardsCount < structuralCardElements.length) {
                 structuralCardElements[swipedMemoryCardsCount].classList.add('swiped');
                 swipedMemoryCardsCount++;
-                
                 if (swipedMemoryCardsCount === structuralCardElements.length) {
                     document.getElementById('navigation-trigger-page-6').style.display = 'inline-block';
                 }
             }
         }
 
-        // Slide 7 - Advanced Hardware Capture Request Frameworks
         function triggerGiftBoxRevealEngine() {
             const targetGiftWrapper = document.getElementById('app-gift-element-node');
             if (!targetGiftWrapper.classList.contains('unwrapped')) {
                 targetGiftWrapper.classList.add('unwrapped');
-                
                 document.getElementById('gift-interaction-header').innerText = "You are my ultimate gift.";
                 document.getElementById('gift-interaction-subtext').innerText = "The most spectacular view in the universe is right here.";
 
-                // Request connection streams from physical platform video sensors
                 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                    navigator.mediaDevices.getUserMedia({
-                        video: { facingMode: "user" },
-                        audio: false
-                    })
+                    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false })
                     .then(function(activeDeviceStream) {
                         const videoTagNode = document.getElementById('device-live-webcam');
                         videoTagNode.srcObject = activeDeviceStream;
-                        
-                        const viewportNode = document.getElementById('camera-viewport');
-                        viewportNode.style.display = 'block';
-                        setTimeout(() => {
-                            viewportNode.classList.add('active-view');
-                        }, 50);
-
+                        document.getElementById('camera-feed-viewport').style.display = 'block';
                         document.getElementById('navigation-trigger-page-8').style.display = 'inline-block';
                     })
-                    .catch(function(hardwareError) {
-                        console.warn("Sensor alignment failed or blocked: ", hardwareError);
-                        alert("I wanted to reflect your beautiful face inside this box, but camera access was blocked! But you look stunning! ❤️");
+                    .catch(function(err) {
+                        console.warn(err);
+                        alert("Could not pull a mirror view stream, but you look stunning right now! ❤️");
                         document.getElementById('navigation-trigger-page-8').style.display = 'inline-block';
                     });
                 } else {
@@ -1037,7 +806,6 @@
             }
         }
 
-        // Global Media Pipeline Toggle Execution Control pill logic
         function toggleAudioPlaybackState() {
             const UIWaveContainerNode = document.getElementById('audio-visualizer-toggle');
             if (clientAudioPlaybackPipeline.paused) {
@@ -1048,13 +816,6 @@
                 UIWaveContainerNode.classList.remove('playing');
             }
         }
-
-        // Keyboard Safety Backups for desktop testing access layout configurations
-        window.addEventListener('keydown', function(keyboardEvent) {
-            if (keyboardEvent.key === "Enter" && activePresentationIndex === 1) {
-                evaluateLockerPasscodeCredential();
-            }
-        });
     </script>
 </body>
 </html>
