@@ -2,29 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday, My Love</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Happy Birthday, My Whole World</title>
     <style>
+        /* Modern System Variables & Theme Configuration */
         :root {
-            --romantic-red: #721c24;
-            --rose-pink: #e8a7a1;
-            --royal-gold: #dfb743;
-            --cream: #fffefa;
-            --glass: rgba(255, 255, 255, 0.88);
-            --shadow: 0 8px 32px rgba(114, 28, 36, 0.1);
+            --primary: #d13b3b;
+            --primary-hover: #b52b2b;
+            --primary-rgb: 209, 59, 59;
+            --accent: #dfb743;
+            --accent-rgb: 223, 183, 67;
+            --bg-gradient: linear-gradient(135deg, #fff3f3 0%, #ffeef2 50%, #fff0f5 100%);
+            --card-glass: rgba(255, 255, 255, 0.82);
+            --card-border: rgba(255, 255, 255, 0.6);
+            --text-main: #1c1a1a;
+            --text-muted: #5a5454;
+            --radius-lg: 32px;
+            --radius-md: 18px;
+            --radius-sm: 12px;
+            --shadow-sm: 0 4px 12px rgba(209, 59, 59, 0.03);
+            --shadow-md: 0 12px 32px rgba(209, 59, 59, 0.08);
+            --shadow-lg: 0 24px 64px rgba(209, 59, 59, 0.15);
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --font-serif: "Playfair Display", "Georgia", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* High-End Reset & Optimization Base */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+            font-family: var(--font-sans);
             -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            background: linear-gradient(135deg, #fff0f0 0%, #fff3e6 100%);
-            color: #2c2c2c;
+            background: var(--bg-gradient);
+            color: var(--text-main);
             overflow: hidden;
             height: 100dvh;
             width: 100vw;
@@ -32,9 +49,78 @@
             justify-content: center;
             align-items: center;
             position: fixed;
+            perspective: 1000px;
         }
 
-        /* Slide Setup */
+        /* Audio Controls Visual Overlay */
+        .audio-pill {
+            position: fixed;
+            top: max(20px, env(safe-area-inset-top));
+            right: max(20px, env(safe-area-inset-right));
+            background: var(--card-glass);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 10px 18px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            transform: translateY(-100px);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .audio-pill.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .audio-wave {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            width: 24px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .audio-bar {
+            width: 3px;
+            height: 30%;
+            background-color: var(--primary);
+            border-radius: 50px;
+            transition: height 0.2s ease;
+            animation: pulseWave 1.2s ease-in-out infinite alternate;
+            animation-play-state: paused;
+        }
+
+        .audio-wave.playing .audio-bar {
+            animation-play-state: running;
+        }
+
+        .audio-wave .audio-bar:nth-child(2) { animation-delay: 0.2s; }
+        .audio-wave .audio-bar:nth-child(3) { animation-delay: 0.4s; }
+        .audio-wave .audio-bar:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes pulseWave {
+            0% { height: 30%; }
+            100% { height: 100%; }
+        }
+
+        /* Global Application Container Frame */
+        #app-viewport {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Core Slide Presentation Layout architecture */
         .slide {
             position: absolute;
             top: 0;
@@ -47,455 +133,928 @@
             align-items: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: clamp(16px, 5vw, 40px);
+            transform: scale(0.96) translateZ(-50px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: clamp(20px, 6vw, 60px);
             text-align: center;
+            z-index: 1;
         }
 
         .slide.active {
             opacity: 1;
             pointer-events: auto;
+            transform: scale(1) translateZ(0);
+            z-index: 2;
         }
 
-        /* Typography */
+        /* Global UI Typography Standards */
         h1 {
-            font-size: clamp(1.8rem, 6vw, 2.6rem);
-            color: var(--romantic-red);
-            margin-bottom: 12px;
-            font-family: 'Georgia', serif;
+            font-size: clamp(2rem, 7vw, 3.4rem);
+            color: var(--primary);
+            font-family: var(--font-serif);
             font-style: italic;
             font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
         }
 
         p {
-            font-size: clamp(0.95rem, 3vw, 1.1rem);
-            line-height: 1.5;
-            color: #5a5a5a;
-            max-width: 340px;
-            margin-bottom: 10px;
+            font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 420px;
+            margin-bottom: 12px;
         }
 
-        .highlight-text {
-            font-size: clamp(1.1rem, 3.5vw, 1.3rem);
-            color: var(--romantic-red);
+        .highlight-accent {
+            font-size: clamp(1.15rem, 4vw, 1.4rem);
+            color: var(--primary);
             font-weight: 600;
-            margin: 15px 0;
+            margin: 20px 0;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
-        /* Interactive Buttons */
+        /* Dynamic System Buttons with Advanced State Tracking */
         button {
-            padding: 14px 36px;
-            background: var(--maroon-red, var(--romantic-red));
+            padding: 16px 42px;
+            background: var(--primary);
             color: white;
-            border: 1px solid var(--royal-gold);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
-            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            font-family: var(--font-serif);
             font-style: italic;
-            font-family: 'Georgia', serif;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(114, 28, 36, 0.25);
-            transition: all 0.3s ease;
-            margin-top: 20px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            margin-top: 24px;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transition: 0.6s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
 
         button:active {
-            transform: scale(0.96);
-            box-shadow: 0 3px 10px rgba(114, 28, 36, 0.15);
+            transform: translateY(-1px);
         }
 
-        /* Page 1 Specific Layout */
+        /* Slide 1 Infrastructure - Modern Login Locker Box */
         #slide-1 {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.3)), 
-                        url('https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=1000') no-repeat center center/cover;
-        }
-        #slide-1 h1 { color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
-        #slide-1 p { color: #f5f5f5; text-shadow: 0 1px 5px rgba(0,0,0,0.4); }
-        
-        .lock-box {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: clamp(30px, 8vw, 45px) 25px;
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-            width: 90%;
-            max-width: 340px;
-            border: 1.5px solid var(--royal-gold);
-        }
-        .lock-box input {
-            padding: 14px;
-            font-size: 1.5rem;
-            width: 160px;
-            text-align: center;
-            border: 2px solid rgba(114, 28, 36, 0.15);
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 12px;
-            letter-spacing: 4px;
-            color: #222;
-            outline: none;
-            transition: border 0.3s ease;
-            inputmode: numeric;
-        }
-        .lock-box input:focus {
-            border-color: var(--romantic-red);
+                        url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1600') no-repeat center center/cover;
         }
 
-        /* Page 3: Cake Object Graphics */
-        .cake-wrapper {
-            position: relative;
-            width: clamp(140px, 40vw, 180px);
-            height: clamp(140px, 40vw, 180px);
-            margin: 25px 0;
+        #slide-1 h1 { color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        #slide-1 p { color: rgba(255,255,255,0.9); text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+        .lock-container {
+            background: var(--card-glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            padding: clamp(35px, 8vw, 55px) 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 92%;
+            max-width: 360px;
+            border: 1px solid var(--card-border);
+            transform: translateY(0);
+            transition: var(--transition-smooth);
         }
-        .cake-base {
+
+        .lock-input-group {
+            position: relative;
+            margin: 25px auto;
+            width: 180px;
+        }
+
+        .lock-container input {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.6rem;
+            text-align: center;
+            border: 2px solid rgba(209, 59, 59, 0.12);
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: var(--radius-md);
+            letter-spacing: 6px;
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition-smooth);
+            font-weight: 700;
+        }
+
+        .lock-container input:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(209, 59, 59, 0.15);
+        }
+
+        /* Error shaking effect implementation */
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        .shake-error {
+            animation: errorShake 0.4s ease-in-out;
+            border-color: #ff3838 !important;
+        }
+
+        /* Slide 2 Specific Layout Configurations */
+        .interactive-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: clamp(25px, 6vw, 45px);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--card-border);
+            max-width: 460px;
+            width: 100%;
+            transform: translateY(0);
+            transition: var(--transition-smooth);
+        }
+
+        /* Slide 3 Layout Custom Interactive Cake & Multi-layered Flame nodes */
+        .cake-system {
+            position: relative;
+            width: clamp(160px, 45vw, 220px);
+            height: clamp(160px, 45vw, 220px);
+            margin: 35px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cake-body {
             position: absolute;
             bottom: 0;
             width: 100%;
             height: 55%;
             background-color: var(--cream);
-            border-radius: 16px 16px 8px 8px;
-            box-shadow: inset 0 12px 0 var(--rose-pink), var(--shadow);
-            border: 1px solid rgba(114, 28, 36, 0.05);
+            border-radius: 20px 20px 12px 12px;
+            box-shadow: inset 0 16px 0 var(--rose-pink), var(--shadow-md);
+            border: 1px solid rgba(209, 59, 59, 0.05);
         }
-        .candle {
+
+        .cake-frosting {
+            position: absolute;
+            top: 45%;
+            width: 100%;
+            height: 12px;
+            background: var(--rose-pink);
+            border-radius: 50px;
+        }
+
+        .cake-candle-stick {
             position: absolute;
             bottom: 54%;
             left: 50%;
             transform: translateX(-50%);
-            width: 12px;
-            height: 25%;
-            background: linear-gradient(to right, #ffe17d, #fff4cc);
-            border-radius: 4px;
-            border: 1px solid var(--royal-gold);
-        }
-        .flame {
-            position: absolute;
-            top: -24px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 28px;
-            background: radial-gradient(circle at 50% 100%, #ffdf6d 20%, #ff9d00 60%, #ff3c00 100%);
-            border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 20px #ff9d00;
-            animation: flicker 0.6s infinite alternate ease-in-out;
-            cursor: pointer;
-            padding: 15px; 
-            margin-left: -15px;
-            margin-top: -15px;
-        }
-        @keyframes flicker {
-            0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
-            100% { transform: translateX(-50%) scale(1.12) rotate(3deg); }
+            width: 14px;
+            height: 28%;
+            background: linear-gradient(to right, #ffe17d, #fff4cc, #ffe17d);
+            border-radius: 6px;
+            border: 1px solid rgba(223, 183, 67, 0.4);
         }
 
-        /* Page 4: Cake Plates Elements */
-        .sharing-zone {
-            display: flex;
-            gap: clamp(20px, 6vw, 40px);
-            margin: 30px 0;
+        .cake-candle-wick {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 8px;
+            background: #444;
         }
-        .plate {
-            width: clamp(100px, 28vw, 130px);
-            height: clamp(100px, 28vw, 130px);
+
+        .cake-candle-flame-node {
+            position: absolute;
+            top: -34px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 34px;
+            background: radial-gradient(circle at 50% 100%, #fff7d9 10%, #ffdf6d 30%, #ff9d00 60%, #ff3c00 100%);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 30px #ff9d00, 0 0 60px #ff3c00;
+            animation: interactiveFlicker 0.6s infinite alternate ease-in-out;
+            cursor: pointer;
+            padding: 20px;
+            margin-left: -20px;
+            margin-top: -20px;
+            z-index: 10;
+        }
+
+        @keyframes interactiveFlicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-2deg); opacity: 0.95; }
+            100% { transform: translateX(-50%) scale(1.15) rotate(3deg); opacity: 1; }
+        }
+
+        /* Slide 4 Asset Plate & Object Integration structures */
+        .plate-sharing-grid {
+            display: flex;
+            gap: clamp(25px, 8vw, 60px);
+            margin: 40px 0;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .interactive-plate-node {
+            width: clamp(110px, 32vw, 150px);
+            height: clamp(110px, 32vw, 150px);
             background: white;
             border-radius: 50%;
-            border: 2px dashed var(--royal-gold);
+            border: 3px dashed var(--rose-pink);
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             cursor: pointer;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s ease;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
         }
-        .cake-slice {
-            width: 50%;
-            height: 50%;
+
+        .interactive-plate-node:hover {
+            transform: scale(1.06) translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .cake-slice-graphic {
+            width: 55%;
+            height: 55%;
             background: var(--cream);
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            border-bottom: 8px solid var(--rose-pink);
+            border-bottom: 12px solid var(--rose-pink);
+            transition: var(--transition-smooth);
         }
-        .plate-label {
+
+        .plate-descriptor {
             position: absolute;
-            bottom: -28px;
-            font-size: 0.85rem;
-            width: 120px;
+            bottom: -32px;
+            font-size: 0.9rem;
+            width: 130px;
             font-style: italic;
-            color: #666;
-        }
-        .plate.eaten .cake-slice { display: none; }
-        .plate.eaten::after {
-            content: "💖";
-            font-size: clamp(1.8rem, 5vw, 2.2rem);
-            animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-        }
-        @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
-
-        /* Page 6: Letter Content Box */
-        .letter {
-            background: var(--cream);
-            width: 100%;
-            max-width: 420px;
-            padding: clamp(20px, 6vw, 35px) clamp(16px, 5vw, 25px);
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            border-left: 5px solid var(--romantic-red);
-            text-align: left;
-            line-height: 1.65;
-        }
-        .letter-body {
-            font-size: clamp(0.95rem, 3vw, 1.05rem);
-            white-space: pre-line;
-            color: #3d3d3d;
-        }
-        .letter-sig {
-            text-align: right;
-            font-style: italic;
-            margin-top: 20px;
-            color: var(--romantic-red);
-            font-weight: 600;
-            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-family: var(--font-serif);
         }
 
-        /* Page 7: Gift Box Graphics */
-        .gift-container {
+        .interactive-plate-node.eaten .cake-slice-graphic {
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
+        }
+
+        .interactive-plate-node.eaten::after {
+            content: '💖';
+            position: absolute;
+            font-size: clamp(2rem, 6vw, 2.6rem);
+            animation: vectorPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        @keyframes vectorPop {
+            0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* Slide 5 Interactive Card Carousel Styling Block */
+        .memories-carousel-container {
             position: relative;
-            width: clamp(100px, 25vw, 120px);
-            height: clamp(100px, 25vw, 120px);
-            margin: 20px 0;
-            cursor: pointer;
+            width: 100%;
+            max-width: 380px;
+            height: 240px;
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .gift-box {
+
+        .memory-card-node {
+            position: absolute;
             width: 100%;
             height: 100%;
-            background-color: var(--romantic-red);
-            border-radius: 12px;
+            background: var(--cream);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .memory-card-node:nth-child(1) { transform: rotate(-3deg) translateY(-5px); z-index: 3; }
+        .memory-card-node:nth-child(2) { transform: rotate(2deg) scale(0.96) cubic-bezier(0.16, 1, 0.3, 1); z-index: 2; opacity: 0.85; }
+        .memory-card-node:nth-child(3) { transform: rotate(-1deg) scale(0.92) cubic-bezier(0.16, 1, 0.3, 1); z-index: 1; opacity: 0.6; }
+
+        .memory-card-node.swiped {
+            transform: translateX(150%) rotate(20deg) !important;
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        .memory-quote {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--primary);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        /* Slide 6 Structural Postcard Letter Node Layouts */
+        .parisian-letter-box {
+            background: var(--cream);
+            width: 100%;
+            max-width: 460px;
+            padding: clamp(25px, 6vw, 40px) clamp(20px, 5vw, 30px);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border-left: 6px solid var(--primary);
+            text-align: left;
             position: relative;
-            box-shadow: 0 10px 25px rgba(114, 28, 36, 0.2);
-            border: 1px solid var(--royal-gold);
+            overflow: hidden;
         }
-        .gift-box::before { /* Vertical Ribbon */
-            content: ''; position: absolute; top:0; bottom:0; left:calc(50% - 9px); width:18px; background: var(--royal-gold);
+
+        .parisian-letter-box::before {
+            content: '✉️';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.06;
         }
-        .gift-box::after { /* Horizontal Ribbon */
-            content: ''; position: absolute; left:0; right:0; top:calc(50% - 9px); height:18px; background: var(--royal-gold);
+
+        .letter-content-stream {
+            font-size: clamp(0.95rem, 3vw, 1.08rem);
+            line-height: 1.7;
+            color: #333;
+            white-space: pre-line;
         }
-        .gift-lid {
-            position: absolute; top: -6px; left: -4%; width: 108%; height: 22%; 
-            background: #56141a; border-radius: 6px; z-index: 2;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;
-            border: 1px solid var(--royal-gold);
+
+        .letter-signature-block {
+            text-align: right;
+            font-style: italic;
+            margin-top: 24px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
         }
-        .gift-container.open .gift-lid {
-            transform: translateY(-60px) rotate(-15deg);
+
+        /* Slide 7 Geometric Present Node Box Formations */
+        .gift-system-wrapper {
+            position: relative;
+            width: clamp(110px, 30vw, 140px);
+            height: clamp(110px, 30vw, 140px);
+            margin: 30px 0;
+            cursor: pointer;
+            perspective: 600px;
+        }
+
+        .gift-box-base {
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 16px;
+            position: relative;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--primary-hover);
+            transition: var(--transition-smooth);
+        }
+
+        .gift-box-base::before {
+            content: ''; position: absolute; top:0; bottom:0; left:calc(50% - 10px); width:20px; background: var(--accent);
+        }
+
+        .gift-box-base::after {
+            content: ''; position: absolute; left:0; right:0; top:calc(50% - 10px); height:20px; background: var(--accent);
+        }
+
+        .gift-box-top-lid {
+            position: absolute;
+            top: -8px;
+            left: -5%;
+            width: 110%;
+            height: 25%;
+            background: #56141a;
+            border-radius: 8px;
+            z-index: 5;
+            transition: var(--transition-smooth);
+            border: 1px solid var(--accent);
+            transform-origin: bottom center;
+        }
+
+        .gift-system-wrapper.unwrapped .gift-box-top-lid {
+            transform: translateY(-80px) rotateX(-110deg) scale(0.9);
             opacity: 0;
         }
-        
-        /* Camera Viewport */
-        #camera-viewport {
+
+        /* Hardware Accelerated Front-facing Cam Container Node Frame */
+        #camera-feed-viewport {
             display: none;
-            width: clamp(200px, 60vw, 260px);
-            height: clamp(200px, 60vw, 260px);
-            border: 6px solid white;
-            border-radius: 50%; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            width: clamp(220px, 65vw, 280px);
+            height: clamp(220px, 65vw, 280px);
+            border: 8px solid white;
+            border-radius: 50%;
+            box-shadow: var(--shadow-lg);
             overflow: hidden;
             background: #111;
-            margin-top: 15px;
-            animation: fadeIn 0.8s ease forwards;
+            margin-top: 20px;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: var(--transition-smooth);
         }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        #webcam {
+
+        #camera-feed-viewport.active-view {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        #device-live-webcam {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scaleX(-1);
+            transform: scaleX(-1); /* Native mirrors orientation alignment overlay code logic */
+        }
+
+        /* Native Client-side Render Background canvas overlay orchestration engines */
+        #particle-canvas-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Progress Bar Indicator Overlay navigation link tracking */
+        .presentation-progress-tracker {
+            position: fixed;
+            bottom: max(20px, env(safe-area-inset-bottom));
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 8px 14px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+        }
+
+        .progress-dot-node {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(114, 28, 36, 0.15);
+            transition: var(--transition-smooth);
+        }
+
+        .progress-dot-node.completed {
+            background: var(--primary);
+            width: 20px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
 
-    <!-- BACKGROUND MUSIC TRACK -->
+    <!-- Particle Overlay Canvas Layer -->
+    <canvas id="particle-canvas-overlay"></canvas>
+
+    <!-- Global Application Background Audio Tracker Stream Module -->
     <audio id="romantic-song" loop preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- PAGE 1: LOCKER DOOR -->
-    <div class="slide active" id="slide-1">
-        <div class="lock-box">
-            <h1>Welcome, My Love</h1>
-            <p>Please type your special birth date digits to unlock my heart...</p>
-            <br>
-            <!-- Formatted for Day-Day-Month-Month (Password set to 2910) -->
-            <input type="text" id="date-lock" placeholder="DDMM" maxlength="4" pattern="\d*">
-            <br>
-            <button onclick="unlockPage()">Unlock Screen</button>
+    <!-- Interactive Top Audio Wave Controller Pill Floating Element Node -->
+    <div class="audio-pill" id="global-audio-pill">
+        <p style="font-size: 0.8rem; margin:0; font-family:var(--font-serif); font-style:italic;">Music Room</p>
+        <div class="audio-wave" id="audio-visualizer-toggle" onclick="toggleAudioPlaybackState()">
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
         </div>
     </div>
 
-    <!-- PAGE 2: TIMELINE ENTRY -->
-    <div class="slide" id="slide-2">
-        <h1>October 29, 2005</h1>
-        <p class="highlight-text">A beautiful star was born...</p>
-        <p>The universe became infinitely brighter on this exact day, creating the most amazing soul I have ever known.</p>
-        <button onclick="goToSlide(3)">Continue Story</button>
-    </div>
+    <!-- Application Presentation Content Sliding Frame Systems Viewports -->
+    <div id="app-viewport">
 
-    <!-- PAGE 3: BLOW OUT CANDLE -->
-    <div class="slide" id="slide-3">
-        <h1>Make a Wish... ✨</h1>
-        <p>Close your eyes and make an incredible wish, my beautiful love.</p>
-        <div class="cake-wrapper">
-            <div class="candle">
-                <div class="flame" id="main-flame" onclick="blowOutCandle()"></div>
-            </div>
-            <div class="cake-base"></div>
-        </div>
-        <p style="font-size:0.85rem; font-style:italic; color:#8a8a8a;">Tap the burning flame to blow it out and unlock the music!</p>
-    </div>
-
-    <!-- PAGE 4: CAKE EATING & SHARING -->
-    <div class="slide" id="slide-4">
-        <h1>Sweet Celebration</h1>
-        <p>Tap your plate to take a delicious bite, then tap mine to share a sweet moment with me!</p>
-        
-        <div class="sharing-zone">
-            <div class="plate" id="her-slice" onclick="eatSlice('her-slice')">
-                <div class="cake-slice"></div>
-                <div class="plate-label">Your Bite ✨</div>
-            </div>
-            
-            <div class="plate" id="my-slice" onclick="eatSlice('my-slice')">
-                <div class="cake-slice"></div>
-                <div class="plate-label">Feed Me 🤍</div>
+        <!-- PAGE 1: SECURITY CODE VALIDATION LOCKER PANEL -->
+        <div class="slide active" id="slide-1">
+            <div class="lock-container" id="locker-card-element">
+                <h1>Hello, My Love</h1>
+                <p>Enter your secret birth date code below to open my heart...</p>
+                <div class="lock-input-group">
+                    <input type="text" id="app-password-input" placeholder="DDMM" maxlength="4" pattern="\d*">
+                </div>
+                <button onclick="evaluateLockerPasscodeCredential()">Unlock Vault</button>
             </div>
         </div>
 
-        <button id="btn-to-letter" style="display: none;" onclick="goToSlide(5)">Next Page</button>
-    </div>
-
-    <!-- PAGE 5: EMOTIONAL BUILDUP -->
-    <div class="slide" id="slide-5">
-        <h1>My Favorite Chapter</h1>
-        <p class="highlight-text">Out of all the memories in my world...</p>
-        <p>The time spent next to you holding your hand remains my absolute greatest blessing. Today is all about celebrating you.</p>
-        <button onclick="goToSlide(6)">Read My Letter</button>
-    </div>
-
-    <!-- PAGE 6: THE LETTER -->
-    <div class="slide" id="slide-6">
-        <h1>My Whole Heart</h1>
-        <div class="letter">
-            <div class="letter-body">
-                Dearest Love,
-
-                Happy Birthday! Experiencing this life journey alongside you turns every normal day into a beautifully complete adventure. 
-
-                You are my comfort, my constant laugh, and my absolute favorite person. May this beautiful year bless you with all the pure magic, success, and smiles your beautiful heart can hold.
+        <!-- PAGE 2: CHRONOLOGICAL BIRTH HISTORY FRAME DATA REVEAL -->
+        <div class="slide" id="slide-2">
+            <div class="interactive-card">
+                <h1>October 29, 2005</h1>
+                <p class="highlight-accent">A Miracle Occurred ✨</p>
+                <p>On this exact day, the world was blessed with an elegant, pure, and genuinely magnificent soul. That perfect soul was you.</p>
+                <button onclick="navigateToPresentationIndex(3)">Step Inside</button>
             </div>
-            <div class="letter-sig">Forever Yours, ❤️</div>
-        </div>
-        <button onclick="goToSlide(7)">Unwrap Gift 🎁</button>
-    </div>
-
-    <!-- PAGE 7: GIFT BOX & CAM VIEWPORT -->
-    <div class="slide" id="slide-7">
-        <h1 id="gift-title">A Special Present...</h1>
-        <p id="gift-text">Tap the ribbon box below to open up my absolute favorite view in the universe.</p>
-        
-        <div class="gift-container" id="gift-wrapper" onclick="openGiftBox()">
-            <div class="gift-lid"></div>
-            <div class="gift-box"></div>
         </div>
 
-        <div id="camera-viewport">
-            <video id="webcam" autoplay playsinline muted></video>
+        <!-- PAGE 3: CLIENT INTERACTIVE PHYSICS CANDLE EXTINGUISH LAYER -->
+        <div class="slide" id="slide-3">
+            <div class="interactive-card">
+                <h1>Make a Wish... 💫</h1>
+                <p>Quiet your thoughts, close your eyes, and think of your absolute brightest dream, my beautiful angel.</p>
+                <div style="width:100%; display:flex; justify-content:center;">
+                    <div class="cake-system">
+                        <div class="cake-candle-stick">
+                            <div class="cake-candle-wick"></div>
+                            <div class="cake-candle-flame-node" id="interactive-candle-flame" onclick="extinguishCandleFlameObject()"></div>
+                        </div>
+                        <div class="cake-body">
+                            <div class="cake-frosting"></div>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-size:0.85rem; font-style:italic; color:var(--text-muted); margin-top:10px;">Tap the glowing fire flame to blow it out and unlock the music room!</p>
+            </div>
         </div>
-        <button id="btn-to-final" style="display: none; margin-top:20px;" onclick="goToSlide(8)">Final Note</button>
+
+        <!-- PAGE 4: SWEET COOPERATIVE MEAL INTERACTION GRID BLOCKS -->
+        <div class="slide" id="slide-4">
+            <div class="interactive-card">
+                <h1>Sweetest Moments</h1>
+                <p>Tap your custom dessert plate to take a bite, then tap mine to feed a sweet share bite to me!</p>
+                <div class="plate-sharing-grid">
+                    <div class="interactive-plate-node" id="her-dessert-plate" onclick="registerBiteInteraction('her-dessert-plate')">
+                        <div class="cake-slice-graphic"></div>
+                        <div class="plate-label">Your Bite ✨</div>
+                    </div>
+                    <div class="interactive-plate-node" id="my-shared-plate" onclick="registerBiteInteraction('my-shared-plate')">
+                        <div class="cake-slice-graphic"></div>
+                        <div class="plate-label">Feed Me 🤍</div>
+                    </div>
+                </div>
+                <button id="navigation-trigger-page-5" style="display: none;" onclick="navigateToPresentationIndex(5)">Continue</button>
+            </div>
+        </div>
+
+        <!-- PAGE 5: DYNAMIC MEMORY TEXT CAROUSEL STACKS ELEMENT LAYER -->
+        <div class="slide" id="slide-5">
+            <h1>Our Sweet Highlights</h1>
+            <p>Tap the card stack to sort through my absolute favorite things about you...</p>
+            <div class="memories-carousel-container" onclick="handleCardSwipeOrchestration()">
+                <div class="memory-card-node">
+                    <p class="memory-quote">"Your Infinite Kindness"</p>
+                    <p style="font-size:0.9rem;">How your beautiful soul makes everyone around you feel safe, heard, and genuinely cared for.</p>
+                </div>
+                <div class="memory-card-node">
+                    <p class="memory-quote">"Your Infectious Laugh"</p>
+                    <p style="font-size:0.9rem;">The brightest, most musical sound in the world that instantly clears any cloudy sky from my life.</p>
+                </div>
+                <div class="memory-card-node">
+                    <p class="memory-quote">"Your Warm Comfort"</p>
+                    <p style="font-size:0.9rem;">How simply holding your soft hands makes the entire chaotic world feel entirely peaceful and complete.</p>
+                </div>
+            </div>
+            <button id="navigation-trigger-page-6" style="display:none;" onclick="navigateToPresentationIndex(6)">Read Letter</button>
+        </div>
+
+        <!-- PAGE 6: VINTAGE PARISIAN LETTER POSTCARD CARD FLOW -->
+        <div class="slide" id="slide-6">
+            <div class="parisian-letter-box">
+                <h1>My Whole Heart 🌹</h1>
+                <div class="letter-content-stream">
+                    Dearest Love,
+
+                    Happy Birthday! Walking through this life journey holding your hand makes every single ordinary moment feel completely extraordinary.
+
+                    You are my quiet comfort, my constant laugh, and my absolute greatest adventure. Thank you for filling my universe with your pure light. May this beautiful year bring you all the endless success, magic, and smiles you deserve.
+                </div>
+                <div class="letter-signature-block">Forever Yours, Me</div>
+            </div>
+            <button onclick="navigateToPresentationIndex(7)">Open Gift 🎁</button>
+        </div>
+
+        <!-- PAGE 7: PROGRESSIVE UNBOXING & WEBCAM STREAM CAPTURE NODE FRAME -->
+        <div class="slide" id="slide-7">
+            <div class="interactive-card">
+                <h1 id="gift-interaction-header">Your Special Present...</h1>
+                <p id="gift-interaction-subtext">Tap the gold-ribbon jewelry container below to unlock the most beautiful view in the universe.</p>
+                <div style="width:100%; display:flex; justify-content:center;">
+                    <div class="gift-system-wrapper" id="app-gift-element-node" onclick="triggerGiftBoxRevealEngine()">
+                        <div class="gift-box-top-lid"></div>
+                        <div class="gift-box-base"></div>
+                    </div>
+                </div>
+                <div style="width:100%; display:flex; justify-content:center;">
+                    <div id="camera-feed-viewport">
+                        <video id="device-live-webcam" autoplay playsinline muted></video>
+                    </div>
+                </div>
+                <button id="navigation-trigger-page-8" style="display: none;" onclick="navigateToPresentationIndex(8)">Final Note</button>
+            </div>
+        </div>
+
+        <!-- PAGE 8: MONUMENTAL CLOSING REMARKS & FUTURE WISH EMISSION PANEL -->
+        <div class="slide" id="slide-8">
+            <div class="interactive-card">
+                <h1>Forever & Always ♾️</h1>
+                <p class="highlight-accent" style="font-size: 1.5rem;">Happy Birthday, Beautiful!</p>
+                <p>Thank you for simply being the magnificent soul you are. No matter how many pages turn in our story, my heart will always beat for you.</p>
+                <p style="margin-top:20px; font-size: 2rem; letter-spacing: 10px;">✨🎂💝🎉</p>
+            </div>
+        </div>
+
     </div>
 
-    <!-- PAGE 8: CLOSING WISH -->
-    <div class="slide" id="slide-8">
-        <h1>Forever & Always</h1>
-        <p class="highlight-text">Happy Birthday, Beautiful! 🌹</p>
-        <p>Thank you for simply being you. May your path ahead stay happy, glowing, and endlessly spectacular.</p>
-        <p style="margin-top: 20px; font-size: 1.5rem;">✨🎂🎉</p>
+    <!-- Interactive Navigation Floating Dots Trackers Frame -->
+    <div class="presentation-progress-tracker" id="app-navigation-dots-pill-bar">
+        <div class="progress-dot-node completed"></div>
+        <div class="progress-dot-node"></div>
+        <div class="progress-dot-node"></div>
+        <div class="progress-dot-node"></div>
+        <div class="progress-dot-node"></div>
+        <div class="progress-dot-node"></div>
+        <div class="progress-dot-node"></div>
+        <div class="progress-dot-node"></div>
     </div>
 
+    <!-- Application Business Engine Initialization Logical System Code -->
     <script>
-        // 🛠️ HARDCODED FOR THE BIRTH DATE REQUESTED: 29-10-2005 (DDMM format)
-        const SECRET_BIRTHDAY = "2910"; 
+        // Target Password configuration for verification sequence logic (29-10-2005)
+        const ENCRYPTED_TARGET_KEY = "2910";
 
-        const song = document.getElementById('romantic-song');
-        let slicesFinished = 0;
+        // Global State Controller Registry objects
+        let activePresentationIndex = 1;
+        let consumedDessertSlicesCount = 0;
+        let swipedMemoryCardsCount = 0;
+        let clientAudioPlaybackPipeline = document.getElementById('romantic-song');
 
-        function goToSlide(slideNum) {
-            document.querySelector('.slide.active').classList.remove('active');
-            document.getElementById(`slide-${slideNum}`).classList.add('active');
+        // Particle System Canvas Core variables
+        const appParticleCanvas = document.getElementById('particle-canvas-overlay');
+        const particleRenderContext = appParticleCanvas.getContext('2d');
+        let activeParticleArray = [];
+        let systemParticleGlobalColorTheme = 'rgba(209, 59, 59, 0.12)';
+
+        // Responsive Canvas Dimension Auto Adjustment engine alignment
+        function resizeParticleCanvasViewportBounds() {
+            appParticleCanvas.width = window.innerWidth;
+            appParticleCanvas.height = window.innerHeight;
         }
+        window.addEventListener('resize', resizeParticleCanvasViewportBounds);
+        resizeParticleCanvasViewportBounds();
 
-        function unlockPage() {
-            const val = document.getElementById('date-lock').value;
-            if(val === SECRET_BIRTHDAY) {
-                // Pre-prime mobile audio context silently
-                song.play().then(() => { song.pause(); }).catch(e => console.log(e));
-                goToSlide(2);
-            } else {
-                alert("That's not the magic date! Try again, my love. (Use DDMM format)");
+        // 2D Canvas Physics Particle Vector Definition blueprint structures
+        class EnvironmentParticleNode {
+            constructor(type = 'heart') {
+                this.resetParticleInstance(type);
+                this.verticalAxisPosition = Math.random() * appParticleCanvas.height;
+            }
+
+            resetParticleInstance(type = 'heart') {
+                this.particleType = type;
+                this.horizontalAxisPosition = Math.random() * appParticleCanvas.width;
+                this.verticalAxisPosition = appParticleCanvas.height + Math.random() * 40;
+                this.particleMassWeightSize = Math.random() * 14 + 6;
+                this.verticalVelocityAscentRate = -(Math.random() * 1.5 + 0.5);
+                this.horizontalSwayVelocityRate = Math.sin(Math.random() * Math.PI) * 0.4;
+                this.particleSwayTimelineMarker = Math.random() * 100;
+                this.particleAlphaOpacityValue = Math.random() * 0.5 + 0.2;
+            }
+
+            updatePhysicsStateAndCoordinates() {
+                this.verticalAxisPosition += this.verticalVelocityAscentRate;
+                this.particleSwayTimelineMarker += 0.02;
+                this.horizontalAxisPosition += Math.sin(this.particleSwayTimelineMarker) * 0.3 + this.horizontalSwayVelocityRate;
+
+                // Handle out-of-bounds boundary escape loops
+                if (this.verticalAxisPosition < -30 || this.horizontalAxisPosition < -30 || this.horizontalAxisPosition > appParticleCanvas.width + 30) {
+                    this.resetParticleInstance(this.particleType);
+                }
+            }
+
+            renderGraphicsToContext() {
+                particleRenderContext.save();
+                particleRenderContext.globalAlpha = this.particleAlphaOpacityValue;
+                particleRenderContext.fillStyle = this.particleType === 'confetti' ? `hsla(${Math.random() * 360}, 75%, 65%, ${this.particleAlphaOpacityValue})` : 'rgba(209, 59, 59, 0.4)';
+                
+                if (this.particleType === 'heart') {
+                    // Mathematical Vector Heart curve trajectory rendering paths
+                    particleRenderContext.beginPath();
+                    let topY = this.verticalAxisPosition;
+                    let leftX = this.horizontalAxisPosition - this.particleMassWeightSize / 2;
+                    let rightX = this.horizontalAxisPosition + this.particleMassWeightSize / 2;
+                    
+                    particleRenderContext.moveTo(this.horizontalAxisPosition, topY + this.particleMassWeightSize / 4);
+                    particleRenderContext.bezierCurveTo(this.horizontalAxisPosition, topY, leftX, topY, leftX, topY + this.particleMassWeightSize / 2);
+                    particleRenderContext.bezierCurveTo(leftX, topY + (this.particleMassWeightSize * 0.75), this.horizontalAxisPosition, topY + (this.particleMassWeightSize * 1.1), this.horizontalAxisPosition, topY + this.particleMassWeightSize);
+                    particleRenderContext.bezierCurveTo(this.horizontalAxisPosition, topY + (this.particleMassWeightSize * 1.1), rightX, topY + (this.particleMassWeightSize * 0.75), rightX, topY + this.particleMassWeightSize / 2);
+                    particleRenderContext.bezierCurveTo(rightX, topY, this.horizontalAxisPosition, topY, this.horizontalAxisPosition, topY + this.particleMassWeightSize / 4);
+                    particleRenderContext.closePath();
+                    particleRenderContext.fill();
+                } else {
+                    // Render confetti geometry vector blocks
+                    particleRenderContext.translate(this.horizontalAxisPosition, this.verticalAxisPosition);
+                    particleRenderContext.rotate(this.particleSwayTimelineMarker);
+                    particleRenderContext.fillRect(-this.particleMassWeightSize/2, -this.particleMassWeightSize/2, this.particleMassWeightSize, this.particleMassWeightSize);
+                }
+                particleRenderContext.restore();
             }
         }
 
-        function blowOutCandle() {
-            document.getElementById('main-flame').style.display = 'none';
-            song.play().catch(err => console.warn("Audio waiting on window permissions:", err));
+        // Initialize Background Particle Engine Arrays
+        function buildGlobalParticleGenerationArray(count = 45, type = 'heart') {
+            activeParticleArray = [];
+            for (let index = 0; index < count; index++) {
+                activeParticleArray.push(new EnvironmentParticleNode(type));
+            }
+        }
+        buildGlobalParticleGenerationArray(35, 'heart');
+
+        // Continuous Loop Render Processing Execution
+        function runGlobalParticleRenderLoop() {
+            particleRenderContext.clearRect(0, 0, appParticleCanvas.width, appParticleCanvas.height);
+            for (let index = 0; index < activeParticleArray.length; index++) {
+                activeParticleArray[index].updatePhysicsStateAndCoordinates();
+                activeParticleArray[index].renderGraphicsToContext();
+            }
+            requestAnimationFrame(runGlobalParticleRenderLoop);
+        }
+        requestAnimationFrame(runGlobalParticleRenderLoop);
+
+        // Slide System Slide Navigation Array index processing orchestration
+        function navigateToPresentationIndex(targetIndex) {
+            document.querySelector('.slide.active').classList.remove('active');
+            document.getElementById(`slide-${targetIndex}`).classList.add('active');
+            
+            activePresentationIndex = targetIndex;
+            synchronizeNavigationDotsPillIndicators();
+        }
+
+        // Sync visual indicator navigation array tracking nodes
+        function synchronizeNavigationDotsPillIndicators() {
+            const childrenPills = document.getElementById('app-navigation-dots-pill-bar').children;
+            for (let i = 0; i < childrenPills.length; i++) {
+                if (i + 1 === activePresentationIndex) {
+                    childrenPills[i].classList.add('completed');
+                } else {
+                    childrenPills[i].classList.remove('completed');
+                }
+            }
+        }
+
+        // Slide 1 - Key Authentication Validation routine logic
+        function evaluateLockerPasscodeCredential() {
+            const textValue = document.getElementById('app-password-input').value;
+            const targetBoxElement = document.getElementById('locker-card-element');
+            
+            if (textValue === ENCRYPTED_TARGET_KEY) {
+                // Pre-prime and establish active pipeline tracking strings for device capabilities
+                clientAudioPlaybackPipeline.play().then(() => {
+                    clientAudioPlaybackPipeline.pause();
+                }).catch(exception => console.log('Audio init exception safe-handled: ', exception));
+                
+                navigateToPresentationIndex(2);
+            } else {
+                targetBoxElement.classList.add('shake-error');
+                document.getElementById('app-password-input').value = "";
+                setTimeout(() => {
+                    targetBoxElement.classList.remove('shake-error');
+                }, 400);
+            }
+        }
+
+        // Slide 3 - Extinguish Candle Fire simulation processing
+        function extinguishCandleFlameObject() {
+            document.getElementById('interactive-candle-flame').style.display = 'none';
+            
+            // Activate Audio Interface Elements and transition stream nodes gracefully
+            document.getElementById('global-audio-pill').classList.add('visible');
+            document.getElementById('audio-visualizer-toggle').classList.add('playing');
+            clientAudioPlaybackPipeline.play().catch(err => console.warn(err));
+            
+            // Shift particle fields to celebratory multi-colored confetti structures
+            buildGlobalParticleGenerationArray(60, 'confetti');
             
             setTimeout(() => {
-                goToSlide(4);
-            }, 1000);
+                navigateToPresentationIndex(4);
+            }, 1400);
         }
 
-        function eatSlice(id) {
-            const currentPlate = document.getElementById(id);
-            if (!currentPlate.classList.contains('eaten')) {
-                currentPlate.classList.add('eaten');
-                slicesFinished++;
+        // Slide 4 - Food Sharing Interactive Array nodes state checking
+        function registerBiteInteraction(plateElementId) {
+            const targetPlateElement = document.getElementById(plateElementId);
+            if (!targetPlateElement.classList.contains('eaten')) {
+                targetPlateElement.classList.add('eaten');
+                consumedDessertSlicesCount++;
                 
-                if(slicesFinished === 2) {
-                    document.getElementById('btn-to-letter').style.display = 'inline-block';
+                if (consumedDessertSlicesCount === 2) {
+                    document.getElementById('navigation-trigger-page-5').style.display = 'inline-block';
                 }
             }
         }
 
-        function openGiftBox() {
-            const wrapper = document.getElementById('gift-wrapper');
-            if(!wrapper.classList.contains('open')) {
-                wrapper.classList.add('open');
+        // Slide 5 - Structural Touch Stack Swiping implementation
+        function handleCardSwipeOrchestration() {
+            const structuralCardElements = document.getElementsByClassName('memory-card-node');
+            if (swipedMemoryCardsCount < structuralCardElements.length) {
+                structuralCardElements[swipedMemoryCardsCount].classList.add('swiped');
+                swipedMemoryCardsCount++;
                 
-                document.getElementById('gift-title').innerText = "You are my ultimate gift.";
-                document.getElementById('gift-text').innerText = "Nothing in this world is more beautiful than seeing you smile.";
+                if (swipedMemoryCardsCount === structuralCardElements.length) {
+                    document.getElementById('navigation-trigger-page-6').style.display = 'inline-block';
+                }
+            }
+        }
 
+        // Slide 7 - Advanced Hardware Capture Request Frameworks
+        function triggerGiftBoxRevealEngine() {
+            const targetGiftWrapper = document.getElementById('app-gift-element-node');
+            if (!targetGiftWrapper.classList.contains('unwrapped')) {
+                targetGiftWrapper.classList.add('unwrapped');
+                
+                document.getElementById('gift-interaction-header').innerText = "You are my ultimate gift.";
+                document.getElementById('gift-interaction-subtext').innerText = "The most spectacular view in the universe is right here.";
+
+                // Request connection streams from physical platform video sensors
                 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                    navigator.mediaDevices.getUserMedia({ 
-                        video: { facingMode: "user" }, 
-                        audio: false 
+                    navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: "user" },
+                        audio: false
                     })
-                    .then(function(stream) {
-                        const video = document.getElementById('webcam');
-                        video.srcObject = stream;
-                        document.getElementById('camera-viewport').style.display = 'block';
-                        document.getElementById('btn-to-final').style.display = 'inline-block';
+                    .then(function(activeDeviceStream) {
+                        const videoTagNode = document.getElementById('device-live-webcam');
+                        videoTagNode.srcObject = activeDeviceStream;
+                        
+                        const viewportNode = document.getElementById('camera-viewport');
+                        viewportNode.style.display = 'block';
+                        setTimeout(() => {
+                            viewportNode.classList.add('active-view');
+                        }, 50);
+
+                        document.getElementById('navigation-trigger-page-8').style.display = 'inline-block';
                     })
-                    .catch(function(err) {
-                        console.warn("Camera streaming exception caught safely: ", err);
+                    .catch(function(hardwareError) {
+                        console.warn("Sensor alignment failed or blocked: ", hardwareError);
                         alert("I wanted to reflect your beautiful face inside this box, but camera access was blocked! But you look stunning! ❤️");
-                        document.getElementById('btn-to-final').style.display = 'inline-block';
+                        document.getElementById('navigation-trigger-page-8').style.display = 'inline-block';
                     });
                 } else {
-                    document.getElementById('btn-to-final').style.display = 'inline-block';
+                    document.getElementById('navigation-trigger-page-8').style.display = 'inline-block';
                 }
             }
         }
+
+        // Global Media Pipeline Toggle Execution Control pill logic
+        function toggleAudioPlaybackState() {
+            const UIWaveContainerNode = document.getElementById('audio-visualizer-toggle');
+            if (clientAudioPlaybackPipeline.paused) {
+                clientAudioPlaybackPipeline.play();
+                UIWaveContainerNode.classList.add('playing');
+            } else {
+                clientAudioPlaybackPipeline.pause();
+                UIWaveContainerNode.classList.remove('playing');
+            }
+        }
+
+        // Keyboard Safety Backups for desktop testing access layout configurations
+        window.addEventListener('keydown', function(keyboardEvent) {
+            if (keyboardEvent.key === "Enter" && activePresentationIndex === 1) {
+                evaluateLockerPasscodeCredential();
+            }
+        });
     </script>
 </body>
 </html>
